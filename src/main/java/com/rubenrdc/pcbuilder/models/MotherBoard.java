@@ -9,7 +9,7 @@ public class MotherBoard extends Articulo {
     //Family Amd/Intel
     //Chipset A550 etc...
     private String Family,Socket,Chipset,MemoryType,Factor;
-    private int EnergyConsumption,TDP,SataSlots,PCIEx16Slots,PCIEx1Slots,MemorySlots,M2NvmeSlots,M2SataSlots;
+    private int EnergyConsumption,SataSlots,PCIEx16Slots,PCIEx1Slots,MemorySlots,M2NvmeSlots,M2SataSlots;
     
     public MotherBoard(String title, String marca) {
         super(title, marca);
@@ -43,10 +43,6 @@ public class MotherBoard extends Articulo {
 
     public int getEnergyConsumption() {
         return EnergyConsumption;
-    }
-
-    public int getTDP() {
-        return TDP;
     }
 
     public int getSataSlots() {

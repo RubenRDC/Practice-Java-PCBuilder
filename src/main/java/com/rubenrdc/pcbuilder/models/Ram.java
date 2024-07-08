@@ -6,7 +6,7 @@ package com.rubenrdc.pcbuilder.models;
  */
 public class Ram extends Articulo{
     //Lantencia unidad CL,Frecuencia unidad MHz...
-    private int FrequencyRam,Capacity,Latency,EnergyConsumption;
+    private int FrequencyRam,Capacity,Latency;
     private String Type;
     private double Voltage;
     private boolean Dissipation;
@@ -32,10 +32,6 @@ public class Ram extends Articulo{
 
     public int getLatency() {
         return Latency;
-    }
-
-    public int getEnergyConsumption() {
-        return EnergyConsumption;
     }
 
     public String getType() {

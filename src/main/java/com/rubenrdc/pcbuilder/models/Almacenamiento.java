@@ -6,9 +6,10 @@ package com.rubenrdc.pcbuilder.models;
  */
 public class Almacenamiento extends Articulo{
     //Type SDD/HDD
-    //Interfaz Sata NVMe
-    private String Type,Factor;
-    private int TDP,Capacity,Cache,MaxReadSquential,MaxWriteSquential,EnergyConsumption;
+    //Interface Sata NVMe
+    //ConnectionType M2,Sata,Etc
+    private String Type,Factor,ConnectionType,Interface;
+    private int Capacity,Cache,MaxReadSquential,MaxWriteSquential,EnergyConsumption,UsefulLife;
     
     public Almacenamiento(String title, String marca) {
         super(title, marca);
@@ -26,10 +27,6 @@ public class Almacenamiento extends Articulo{
 
     public String getFactor() {
         return Factor;
-    }
-
-    public int getTDP() {
-        return TDP;
     }
 
     public int getCapacity() {
@@ -50,6 +47,18 @@ public class Almacenamiento extends Articulo{
 
     public int getEnergyConsumption() {
         return EnergyConsumption;
+    }
+
+    public String getConnectionType() {
+        return ConnectionType;
+    }
+
+    public String getInterface() {
+        return Interface;
+    }
+
+    public int getUsefulLife() {
+        return UsefulLife;
     }
     
 }

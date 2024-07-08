@@ -8,7 +8,7 @@ public class Fuente extends Articulo{
     
     private int RatedWatts,RealWatts,SataConnections;
     private String WiringType,Certification,Factor;
-    private boolean Pin24Connector;
+    private boolean Pin24Connector,IncludeCable;
     
     public Fuente(String title, String marca) {
         super(title, marca);
@@ -47,6 +47,8 @@ public class Fuente extends Articulo{
     public boolean isPin24Connector() {
         return Pin24Connector;
     }
-    
-    
+
+    public boolean isIncludeCable() {
+        return IncludeCable;
+    }
 }

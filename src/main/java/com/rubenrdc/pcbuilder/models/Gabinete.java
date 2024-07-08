@@ -8,9 +8,8 @@ public class Gabinete extends Articulo{
     
     private String FactorMother,PowerFactor;
     private boolean Window,SoportWaterRadiator;
-    private int TypeWindow,Width,Height,Length,SoportCoolersFan80,
-            SoportCoolersFan120,SoportCoolersFan140,SoportCoolersFan200,
-            MaxSoportCoolerHeight,SoportRadiator240,SoportRadiator280,
+    private int TypeWindow,Width,Height,Length,MaxSoportCoolerHeight,SoportCoolersFan80,
+            SoportCoolersFan120,SoportCoolersFan140,SoportCoolersFan200,SoportRadiator240,SoportRadiator280,
             SoportRadiator360,SoportRadiator420,StorageSlots,SoportFactor2_5,
             SoportFactor3_25,SoportFactor3_5,SoportFactor5_25;
     

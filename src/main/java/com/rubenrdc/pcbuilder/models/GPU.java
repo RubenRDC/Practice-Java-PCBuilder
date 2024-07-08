@@ -7,16 +7,16 @@ package com.rubenrdc.pcbuilder.models;
 public class GPU extends Articulo{
     //Height Altura
     private String Type,ChipsetGpu,Serie,TypeMemory;
-    private int CoolersFans,VGA,DVI,HDMI,DisplayPorts,Height,Length,EnergyConsumption,CapacityMemory;
+    private int VGA,DVI,HDMI,DisplayPorts,Height,Length,EnergyConsumption,MemoryVRam, SpeedMemory,RecommMinimWatts;
     
     public GPU(String title, String marca) {
         super(title, marca);
     }
     //Basic Information
-    public GPU(String title, String marca,String Serie,int CapacityMemory) {
+    public GPU(String title, String marca,String Serie,int MemoryVRam) {
         super(title, marca);
         this.Serie=Serie;
-        this.CapacityMemory=CapacityMemory;
+        this.MemoryVRam=MemoryVRam;
     }
 
     public String getType() {
@@ -34,11 +34,7 @@ public class GPU extends Articulo{
     public String getTypeMemory() {
         return TypeMemory;
     }
-
-    public int getCoolersFans() {
-        return CoolersFans;
-    }
-
+    
     public int getVGA() {
         return VGA;
     }
@@ -67,8 +63,15 @@ public class GPU extends Articulo{
         return EnergyConsumption;
     }
 
-    public int getCapacityMemory() {
-        return CapacityMemory;
+    public int getMemoryVRam() {
+        return MemoryVRam;
     }
-    
+
+    public int getSpeedMemory() {
+        return SpeedMemory;
+    }
+
+    public int getRecommMinimWatts() {
+        return RecommMinimWatts;
+    }
 }

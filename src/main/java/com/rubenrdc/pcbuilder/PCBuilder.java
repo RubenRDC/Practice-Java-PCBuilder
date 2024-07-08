@@ -1,10 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.rubenrdc.pcbuilder;
-
-import com.rubenrdc.pcbuilder.IGU.PCBuilderIGU;
 
 /**
  *
@@ -13,8 +7,15 @@ import com.rubenrdc.pcbuilder.IGU.PCBuilderIGU;
 public class PCBuilder {
 
     public static void main(String[] args) {
-        PCBuilderIGU pc = new PCBuilderIGU();
-        pc.setLocationRelativeTo(null);
-        pc.setVisible(true);
+        FrameAdmin frameAdmin = new FrameAdmin(null);
+        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_SELECT_FAMILY, -1);
+        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_STORAGE);
+        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_COOLER);
+        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_POWER);
+        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_GPU);
+        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_TOWER);
+        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_MOTHER);
+        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_PROCESSOR);
+        frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_RAM);
     }
 }

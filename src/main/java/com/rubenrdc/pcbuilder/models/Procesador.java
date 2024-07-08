@@ -6,9 +6,9 @@ package com.rubenrdc.pcbuilder.models;
  */
 public class Procesador extends Articulo {
 
-    private int Ncores, NThreads, TDP, frequencyMaxRam, Tjmax, EnergyConsumption;
+    private int Ncores, NThreads, TDP, frequencyMaxRam;
     private double frequencyBase, frequencyTurbo;
-    private String ChipsetGPU, Socket, Serie,TypeMemory;
+    private String ChipsetGPU, Socket,TypeMemory,Family;
     private boolean includeCooler;
 
     public Procesador(String title, String marca) {
@@ -38,14 +38,6 @@ public class Procesador extends Articulo {
         return frequencyMaxRam;
     }
 
-    public int getTjmax() {
-        return Tjmax;
-    }
-
-    public int getEnergyConsumption() {
-        return EnergyConsumption;
-    }
-
     public double getFrequencyBase() {
         return frequencyBase;
     }
@@ -62,10 +54,6 @@ public class Procesador extends Articulo {
         return Socket;
     }
 
-    public String getSerie() {
-        return Serie;
-    }
-
     public String getTypeMemory() {
         return TypeMemory;
     }
@@ -73,6 +61,7 @@ public class Procesador extends Articulo {
     public boolean isIncludeCooler() {
         return includeCooler;
     }
-    
-    
+    public String getFamily() {
+        return Family;
+    }
 }

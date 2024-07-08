@@ -6,7 +6,7 @@ package com.rubenrdc.pcbuilder.models;
  */
 public class Cooler extends Articulo {
 
-    private int TDP, highCooler, sizeCooler, EnergyConsumption, CoolersFans, RecommMinimWatts, MemoryVRam, SpeedMemory;
+    private int TDP, highCooler, sizeCooler,sizeCoolerFans, EnergyConsumption, CoolersFans;
     private String Socket, Type;
 
     public Cooler(String title, String marca) {
@@ -39,24 +39,16 @@ public class Cooler extends Articulo {
         return CoolersFans;
     }
 
-    public int getRecommMinimWatts() {
-        return RecommMinimWatts;
-    }
-
-    public int getMemoryVRam() {
-        return MemoryVRam;
-    }
-
-    public int getSpeedMemory() {
-        return SpeedMemory;
-    }
-
     public String getSocket() {
         return Socket;
     }
 
     public String getType() {
         return Type;
+    }
+
+    public int getSizeCoolerFans() {
+        return sizeCoolerFans;
     }
     
 }
