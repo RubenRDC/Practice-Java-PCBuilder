@@ -1,26 +1,30 @@
 package com.rubenrdc.pcbuilder.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ruben
  */
-public class Gabinete extends Articulo{
-    
-    private String FactorMother,PowerFactor;
-    private boolean Window,SoportWaterRadiator;
-    private int TypeWindow,Width,Height,Length,MaxSoportCoolerHeight,SoportCoolersFan80,
-            SoportCoolersFan120,SoportCoolersFan140,SoportCoolersFan200,SoportRadiator240,SoportRadiator280,
-            SoportRadiator360,SoportRadiator420,StorageSlots,SoportFactor2_5,
-            SoportFactor3_25,SoportFactor3_5,SoportFactor5_25;
-    
+public class Gabinete extends Articulo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    private String FactorMother, PowerFactor;
+    private boolean Window, SoportWaterRadiator;
+    private int TypeWindow, Width, Height, Length, MaxSoportCoolerHeight, SoportCoolersFan80,
+            SoportCoolersFan120, SoportCoolersFan140, SoportCoolersFan200, SoportRadiator240, SoportRadiator280,
+            SoportRadiator360, SoportRadiator420, StorageSlots, SoportFactor2_5,
+            SoportFactor3_25, SoportFactor3_5, SoportFactor5_25;
+
     public Gabinete(String title, String marca) {
         super(title, marca);
     }
+
     //Basic Information
-    public Gabinete(String title, String marca,String FactorMother,String PowerFactor){
+    public Gabinete(String title, String marca, String FactorMother, String PowerFactor) {
         super(title, marca);
         this.FactorMother = FactorMother;
-        this.PowerFactor=PowerFactor;
+        this.PowerFactor = PowerFactor;
     }
 
     public String getFactorMother() {
@@ -110,5 +114,5 @@ public class Gabinete extends Articulo{
     public int getSoportFactor5_25() {
         return SoportFactor5_25;
     }
-    
+
 }

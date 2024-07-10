@@ -1,25 +1,29 @@
 package com.rubenrdc.pcbuilder.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ruben
  */
-public class Ram extends Articulo{
+public class Ram extends Articulo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     //Lantencia unidad CL,Frecuencia unidad MHz...
-    private int FrequencyRam,Capacity,Latency;
+    private int FrequencyRam, Capacity, Latency;
     private String Type;
     private double Voltage;
     private boolean Dissipation;
-    
+
     public Ram(String title, String marca) {
         super(title, marca);
     }
-    
+
     //Basic Information
-    public Ram(String title, String marca,int Capacity,int FrequencyRam) {
+    public Ram(String title, String marca, int Capacity, int FrequencyRam) {
         super(title, marca);
-        this.Capacity=Capacity;
-        this.FrequencyRam=FrequencyRam;
+        this.Capacity = Capacity;
+        this.FrequencyRam = FrequencyRam;
     }
 
     public int getFrequencyRam() {
@@ -45,5 +49,5 @@ public class Ram extends Articulo{
     public boolean isDissipation() {
         return Dissipation;
     }
-    
+
 }

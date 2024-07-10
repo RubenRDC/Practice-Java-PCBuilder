@@ -1,13 +1,17 @@
 package com.rubenrdc.pcbuilder.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ruben
  */
-public class Almacenamiento extends Articulo{
+public class Almacenamiento extends Articulo implements Serializable{
     //Type SDD/HDD
     //Interface Sata NVMe
     //ConnectionType M2,Sata,Etc
+    private static final long serialVersionUID = 1L;
+    
     private String Type,Factor,ConnectionType,Interface;
     private int Capacity,Cache,MaxReadSquential,MaxWriteSquential,EnergyConsumption,UsefulLife;
     

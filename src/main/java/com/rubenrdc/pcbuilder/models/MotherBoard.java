@@ -1,24 +1,29 @@
 package com.rubenrdc.pcbuilder.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ruben
  */
-public class MotherBoard extends Articulo {
+public class MotherBoard extends Articulo implements Serializable {
+
     //Socket AM4/AM5 etc...
     //Family Amd/Intel
     //Chipset A550 etc...
-    private String Family,Socket,Chipset,MemoryType,Factor;
-    private int EnergyConsumption,SataSlots,PCIEx16Slots,PCIEx1Slots,MemorySlots,M2NvmeSlots,M2SataSlots;
-    
+    private static final long serialVersionUID = 1L;
+    private String Family, Socket, Chipset, MemoryType, Factor;
+    private int EnergyConsumption, SataSlots, PCIEx16Slots, PCIEx1Slots, MemorySlots, M2NvmeSlots, M2SataSlots;
+
     public MotherBoard(String title, String marca) {
         super(title, marca);
     }
+
     //Basic Information
-    public MotherBoard(String title, String marca,String Chipset,String Factor) {
+    public MotherBoard(String title, String marca, String Chipset, String Factor) {
         super(title, marca);
-        this.Chipset=Chipset;
-        this.Factor=Factor;
+        this.Chipset = Chipset;
+        this.Factor = Factor;
     }
 
     public String getFamily() {
@@ -68,6 +73,5 @@ public class MotherBoard extends Articulo {
     public int getM2SataSlots() {
         return M2SataSlots;
     }
-    
-    
+
 }

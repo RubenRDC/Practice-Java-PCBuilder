@@ -1,22 +1,26 @@
 package com.rubenrdc.pcbuilder.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ruben
  */
-public class Cooler extends Articulo {
+public class Cooler extends Articulo implements Serializable {
 
-    private int TDP, highCooler, sizeCooler,sizeCoolerFans, EnergyConsumption, CoolersFans;
+    private static final long serialVersionUID = 1L;
+    private int TDP, highCooler, sizeCooler, sizeCoolerFans, EnergyConsumption, CoolersFans;
     private String Socket, Type;
 
     public Cooler(String title, String marca) {
         super(title, marca);
     }
+
     //Basic Information
-    public Cooler(String title, String marca,String Type,int TDP) {
+    public Cooler(String title, String marca, String Type, int TDP) {
         super(title, marca);
-        this.Type=Type;
-        this.TDP=TDP;
+        this.Type = Type;
+        this.TDP = TDP;
     }
 
     public int getTDP() {
@@ -50,5 +54,5 @@ public class Cooler extends Articulo {
     public int getSizeCoolerFans() {
         return sizeCoolerFans;
     }
-    
+
 }
