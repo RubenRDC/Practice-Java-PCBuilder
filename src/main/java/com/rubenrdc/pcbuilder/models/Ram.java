@@ -1,6 +1,7 @@
 package com.rubenrdc.pcbuilder.models;
 
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,8 +21,8 @@ public class Ram extends Articulo implements Serializable {
     }
 
     //Basic Information
-    public Ram(String title, String marca, int Capacity, int FrequencyRam) {
-        super(title, marca);
+    public Ram(ImageIcon imagen, String title, String marca, int Capacity, int FrequencyRam) {
+        super(imagen, title, marca);
         this.Capacity = Capacity;
         this.FrequencyRam = FrequencyRam;
     }

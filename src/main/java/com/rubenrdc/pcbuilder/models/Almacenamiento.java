@@ -1,28 +1,31 @@
 package com.rubenrdc.pcbuilder.models;
 
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Ruben
  */
-public class Almacenamiento extends Articulo implements Serializable{
+public class Almacenamiento extends Articulo implements Serializable {
+
     //Type SDD/HDD
     //Interface Sata NVMe
     //ConnectionType M2,Sata,Etc
     private static final long serialVersionUID = 1L;
-    
-    private String Type,Factor,ConnectionType,Interface;
-    private int Capacity,Cache,MaxReadSquential,MaxWriteSquential,EnergyConsumption,UsefulLife;
-    
+
+    private String Type, Factor, ConnectionType, Interface;
+    private int Capacity, Cache, MaxReadSquential, MaxWriteSquential, EnergyConsumption, UsefulLife;
+
     public Almacenamiento(String title, String marca) {
         super(title, marca);
     }
+
     //Basic Information
-    public Almacenamiento(String title, String marca,String Type,String Factor) {
-        super(title, marca);
-        this.Type=Type;
-        this.Factor=Factor;
+    public Almacenamiento(ImageIcon imagen, String title, String marca, String Type, String Factor) {
+        super(imagen, title, marca);
+        this.Type = Type;
+        this.Factor = Factor;
     }
 
     public String getType() {
@@ -64,5 +67,5 @@ public class Almacenamiento extends Articulo implements Serializable{
     public int getUsefulLife() {
         return UsefulLife;
     }
-    
+
 }

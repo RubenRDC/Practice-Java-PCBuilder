@@ -1,6 +1,7 @@
 package com.rubenrdc.pcbuilder.models;
 
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,8 +21,8 @@ public class MotherBoard extends Articulo implements Serializable {
     }
 
     //Basic Information
-    public MotherBoard(String title, String marca, String Chipset, String Factor) {
-        super(title, marca);
+    public MotherBoard(ImageIcon imagen, String title, String marca, String Chipset, String Factor) {
+        super(imagen, title, marca);
         this.Chipset = Chipset;
         this.Factor = Factor;
     }

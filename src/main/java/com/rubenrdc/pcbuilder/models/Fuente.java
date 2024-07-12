@@ -1,6 +1,7 @@
 package com.rubenrdc.pcbuilder.models;
 
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -18,8 +19,8 @@ public class Fuente extends Articulo implements Serializable {
     }
 
     //Basic Information
-    public Fuente(String title, String marca, int RealWatts, String Factor) {
-        super(title, marca);
+    public Fuente(ImageIcon imagen, String title, String marca, int RealWatts, String Factor) {
+        super(imagen, title, marca);
         this.RealWatts = RealWatts;
         this.Factor = Factor;
     }

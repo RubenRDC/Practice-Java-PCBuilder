@@ -16,6 +16,12 @@ public class Articulo implements Comparable {
         this.marca = marca;
     }
 
+    public Articulo(ImageIcon imagen, String title, String marca) {
+        this.imagen = imagen;
+        this.title = title;
+        this.marca = marca;
+    }
+
     public String getTitle() {
         return title;
     }

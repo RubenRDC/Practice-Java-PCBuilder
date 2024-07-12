@@ -1,6 +1,7 @@
 package com.rubenrdc.pcbuilder.models;
 
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -17,8 +18,8 @@ public class Cooler extends Articulo implements Serializable {
     }
 
     //Basic Information
-    public Cooler(String title, String marca, String Type, int TDP) {
-        super(title, marca);
+    public Cooler(ImageIcon imagen, String title, String marca, String Type, int TDP) {
+        super(imagen, title, marca);
         this.Type = Type;
         this.TDP = TDP;
     }

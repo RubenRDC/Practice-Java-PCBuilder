@@ -1,6 +1,7 @@
 package com.rubenrdc.pcbuilder.models;
 
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,8 +22,8 @@ public class Gabinete extends Articulo implements Serializable {
     }
 
     //Basic Information
-    public Gabinete(String title, String marca, String FactorMother, String PowerFactor) {
-        super(title, marca);
+    public Gabinete(ImageIcon imagen, String title, String marca, String FactorMother, String PowerFactor) {
+        super(imagen, title, marca);
         this.FactorMother = FactorMother;
         this.PowerFactor = PowerFactor;
     }
