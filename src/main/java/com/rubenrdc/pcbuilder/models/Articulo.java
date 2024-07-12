@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
  *
  * @author Ruben
  */
-public class Articulo {
+public class Articulo implements Comparable {
 
     private String title, marca, oficialDocumentation;
     private ImageIcon imagen;
@@ -59,5 +59,17 @@ public class Articulo {
             }
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Articulo art = (Articulo) o;
+        int compareToIgnoreCase = this.title.compareToIgnoreCase(art.title);
+        if (compareToIgnoreCase == 0) {
+            return 0;
+        } else if (compareToIgnoreCase < 0) {
+            return -1;
+        }
+        return 1;
     }
 }
