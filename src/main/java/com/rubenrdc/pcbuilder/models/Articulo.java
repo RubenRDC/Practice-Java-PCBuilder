@@ -7,12 +7,13 @@ import javax.swing.ImageIcon;
  * @author Ruben
  */
 public class Articulo {
-    private String title,marca,oficialDocumentation;
+
+    private String title, marca, oficialDocumentation;
     private ImageIcon imagen;
-    
-    public Articulo(String title,String marca) {
-        this.title=title;
-        this.marca=marca;
+
+    public Articulo(String title, String marca) {
+        this.title = title;
+        this.marca = marca;
     }
 
     public String getTitle() {
@@ -45,5 +46,18 @@ public class Articulo {
 
     public void setOficialDocumentation(String oficialDocumentation) {
         this.oficialDocumentation = oficialDocumentation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o.getClass() == this.getClass()) {
+            Articulo art = (Articulo) o;
+            if (art.getTitle().equals(this.getTitle()) & art.getMarca().equals(this.getMarca())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
