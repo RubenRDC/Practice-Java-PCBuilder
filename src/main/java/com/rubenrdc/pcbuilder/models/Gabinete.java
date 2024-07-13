@@ -16,6 +16,7 @@ public class Gabinete extends Articulo implements Serializable {
             SoportCoolersFan120, SoportCoolersFan140, SoportCoolersFan200, SoportRadiator240, SoportRadiator280,
             SoportRadiator360, SoportRadiator420, StorageSlots, SoportFactor2_5,
             SoportFactor3_25, SoportFactor3_5, SoportFactor5_25;
+    private Object row[];
 
     public Gabinete(String title, String marca) {
         super(title, marca);
@@ -116,4 +117,12 @@ public class Gabinete extends Articulo implements Serializable {
         return SoportFactor5_25;
     }
 
+    public Object[] getRow() {
+        row = new Object[4];
+        row[0] = super.getTitle();
+        row[1] = super.getMarca();
+        row[2] = FactorMother;
+        row[3] = PowerFactor;
+        return row;
+    }
 }

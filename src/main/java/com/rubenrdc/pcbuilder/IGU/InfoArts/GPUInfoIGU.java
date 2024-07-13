@@ -4,9 +4,14 @@ package com.rubenrdc.pcbuilder.IGU.InfoArts;
  *
  * @author Ruben
  */
-public class GPUInfoIGU extends javax.swing.JFrame {
+public class GPUInfoIGU extends javax.swing.JDialog {
 
     public GPUInfoIGU() {
+        initComponents();
+    }
+
+    public GPUInfoIGU(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -748,7 +753,6 @@ public class GPUInfoIGU extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

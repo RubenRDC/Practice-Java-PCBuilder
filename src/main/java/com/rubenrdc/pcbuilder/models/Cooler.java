@@ -12,6 +12,7 @@ public class Cooler extends Articulo implements Serializable {
     private static final long serialVersionUID = 1L;
     private int TDP, highCooler, sizeCooler, sizeCoolerFans, EnergyConsumption, CoolersFans;
     private String Socket, Type;
+    private Object row[];
 
     public Cooler(String title, String marca) {
         super(title, marca);
@@ -55,5 +56,13 @@ public class Cooler extends Articulo implements Serializable {
     public int getSizeCoolerFans() {
         return sizeCoolerFans;
     }
-
+    
+    public Object[] getRow() {
+        row = new Object[4];
+        row[0] = super.getTitle();
+        row[1] = super.getMarca();
+        row[2] = Type;
+        row[3] = TDP;
+        return row;
+    }
 }

@@ -13,11 +13,12 @@ public class Fuente extends Articulo implements Serializable {
     private int RatedWatts, RealWatts, SataConnections;
     private String WiringType, Certification, Factor;
     private boolean Pin24Connector, IncludeCable;
-
+    private Object row[];
+    
     public Fuente(String title, String marca) {
         super(title, marca);
     }
-
+    
     //Basic Information
     public Fuente(ImageIcon imagen, String title, String marca, int RealWatts, String Factor) {
         super(imagen, title, marca);
@@ -55,5 +56,13 @@ public class Fuente extends Articulo implements Serializable {
 
     public boolean isIncludeCable() {
         return IncludeCable;
+    }
+    public Object[] getRow() {
+        row = new Object[4];
+        row[0] = super.getTitle();
+        row[1] = super.getMarca();
+        row[2] = RealWatts;
+        row[3] = Factor;
+        return row;
     }
 }

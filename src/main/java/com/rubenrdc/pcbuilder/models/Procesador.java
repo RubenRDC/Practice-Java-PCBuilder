@@ -14,6 +14,7 @@ public class Procesador extends Articulo implements Serializable {
     private double frequencyBase, frequencyTurbo;
     private String ChipsetGPU, Socket, TypeMemory, Family;
     private boolean includeCooler;
+    private Object row[];
 
     public Procesador(String title, String marca) {
         super(title, marca);
@@ -69,5 +70,15 @@ public class Procesador extends Articulo implements Serializable {
 
     public String getFamily() {
         return Family;
+    }
+
+    public Object[] getRow() {
+        row = new Object[5];
+        row[0] = super.getTitle();
+        row[1] = super.getMarca();
+        row[2] = Ncores;
+        row[3] = NThreads;
+        row[4] = frequencyTurbo;
+        return row;
     }
 }

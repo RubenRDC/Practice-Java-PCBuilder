@@ -15,6 +15,7 @@ public class Ram extends Articulo implements Serializable {
     private String Type;
     private double Voltage;
     private boolean Dissipation;
+    private Object row[];
 
     public Ram(String title, String marca) {
         super(title, marca);
@@ -51,4 +52,12 @@ public class Ram extends Articulo implements Serializable {
         return Dissipation;
     }
 
+    public Object[] getRow() {
+        row = new Object[4];
+        row[0] = super.getTitle();
+        row[1] = super.getMarca();
+        row[2] = Capacity;
+        row[3] = FrequencyRam;
+        return row;
+    }
 }

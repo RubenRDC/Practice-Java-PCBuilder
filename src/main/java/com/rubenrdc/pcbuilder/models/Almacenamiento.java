@@ -16,6 +16,7 @@ public class Almacenamiento extends Articulo implements Serializable {
 
     private String Type, Factor, ConnectionType, Interface;
     private int Capacity, Cache, MaxReadSquential, MaxWriteSquential, EnergyConsumption, UsefulLife;
+    private Object row[];
 
     public Almacenamiento(String title, String marca) {
         super(title, marca);
@@ -68,4 +69,12 @@ public class Almacenamiento extends Articulo implements Serializable {
         return UsefulLife;
     }
 
+    public Object[] getRow() {
+        row = new Object[4];
+        row[0] = super.getTitle();
+        row[1] = super.getMarca();
+        row[2] = Type;
+        row[3] = Factor;
+        return row;
+    }
 }

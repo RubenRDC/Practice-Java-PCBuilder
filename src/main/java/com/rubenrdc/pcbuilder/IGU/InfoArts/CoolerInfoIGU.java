@@ -4,9 +4,14 @@ package com.rubenrdc.pcbuilder.IGU.InfoArts;
  *
  * @author Ruben
  */
-public class CoolerInfoIGU extends javax.swing.JFrame {
+public class CoolerInfoIGU extends javax.swing.JDialog {
 
     public CoolerInfoIGU() {
+        initComponents();
+    }
+
+    public CoolerInfoIGU(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -534,7 +539,6 @@ public class CoolerInfoIGU extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,9 +4,14 @@ package com.rubenrdc.pcbuilder.IGU.InfoArts;
  *
  * @author Ruben
  */
-public class TowerIGU extends javax.swing.JFrame {
+public class TowerIGU extends javax.swing.JDialog {
 
     public TowerIGU() {
+        initComponents();
+    }
+
+    public TowerIGU(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -949,7 +954,6 @@ public class TowerIGU extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

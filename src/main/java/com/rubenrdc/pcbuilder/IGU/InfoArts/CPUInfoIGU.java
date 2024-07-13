@@ -4,9 +4,13 @@ package com.rubenrdc.pcbuilder.IGU.InfoArts;
  *
  * @author Ruben
  */
-public class CPUInfoIGU extends javax.swing.JFrame {
+public class CPUInfoIGU extends javax.swing.JDialog {
 
     public CPUInfoIGU() {
+        initComponents();
+    }
+    public CPUInfoIGU(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
     //

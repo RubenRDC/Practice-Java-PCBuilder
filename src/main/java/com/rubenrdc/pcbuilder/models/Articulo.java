@@ -10,6 +10,7 @@ public class Articulo implements Comparable {
 
     private String title, marca, oficialDocumentation;
     private ImageIcon imagen;
+    private Object row[];
 
     public Articulo(String title, String marca) {
         this.title = title;
@@ -77,5 +78,12 @@ public class Articulo implements Comparable {
             return -1;
         }
         return 1;
+    }
+
+    public Object[] getRow() {
+        row = new Object[2];
+        row[0] = title;
+        row[1] = marca;
+        return row;
     }
 }

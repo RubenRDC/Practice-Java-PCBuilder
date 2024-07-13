@@ -4,9 +4,14 @@ package com.rubenrdc.pcbuilder.IGU.InfoArts;
  *
  * @author Ruben
  */
-public class RamInfoIGU extends javax.swing.JFrame {
+public class RamInfoIGU extends javax.swing.JDialog {
 
     public RamInfoIGU() {
+        initComponents();
+    }
+
+    public RamInfoIGU(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -408,7 +413,6 @@ public class RamInfoIGU extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

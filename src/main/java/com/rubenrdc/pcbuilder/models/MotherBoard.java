@@ -15,6 +15,7 @@ public class MotherBoard extends Articulo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String Family, Socket, Chipset, MemoryType, Factor;
     private int EnergyConsumption, SataSlots, PCIEx16Slots, PCIEx1Slots, MemorySlots, M2NvmeSlots, M2SataSlots;
+    private Object row[];
 
     public MotherBoard(String title, String marca) {
         super(title, marca);
@@ -75,4 +76,12 @@ public class MotherBoard extends Articulo implements Serializable {
         return M2SataSlots;
     }
 
+    public Object[] getRow() {
+        row = new Object[4];
+        row[0] = super.getTitle();
+        row[1] = super.getMarca();
+        row[2] = Chipset;
+        row[3] = Factor;
+        return row;
+    }
 }

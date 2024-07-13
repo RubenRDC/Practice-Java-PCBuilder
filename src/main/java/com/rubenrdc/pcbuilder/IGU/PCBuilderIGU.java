@@ -1,20 +1,46 @@
 package com.rubenrdc.pcbuilder.IGU;
 
+import com.rubenrdc.pcbuilder.FrameAdmin;
+import com.rubenrdc.pcbuilder.IGU.interfaces.Utilities;
+import com.rubenrdc.pcbuilder.models.Almacenamiento;
+import com.rubenrdc.pcbuilder.models.Articulo;
+import com.rubenrdc.pcbuilder.models.Cooler;
+import com.rubenrdc.pcbuilder.models.Fuente;
+import com.rubenrdc.pcbuilder.models.GPU;
+import com.rubenrdc.pcbuilder.models.Gabinete;
+import com.rubenrdc.pcbuilder.models.MotherBoard;
+import com.rubenrdc.pcbuilder.models.Procesador;
+import com.rubenrdc.pcbuilder.models.Ram;
+import com.rubenrdc.pcbuilder.models.list.ListaSeleccion;
+import com.rubenrdc.pcbuilder.models.paquete.PaquetePeticionClient;
+import com.rubenrdc.pcbuilder.models.paquete.PaqueteRecepcionClient;
+import java.util.List;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author Ruben
  */
-public class PCBuilderIGU extends javax.swing.JFrame {
+public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
 
     public static final int TYPE_INTEL = 0, TYPE_AMD = 1;
     private int indexSelected = 0;
+    private final FrameAdmin frameAdmin = new FrameAdmin(this);
+    private final ListaSeleccion listaSeleccion = new ListaSeleccion();
+    private List<Almacenamiento> listStorages;
+    private List<Cooler> listCoolers;
+    private List<Fuente> listPowers;
+    private List<GPU> listGPUs;
+    private List<Gabinete> listTowers;
+    private List<MotherBoard> listMothers;
+    private List<Procesador> listCPUs;
+    private List<Ram> listRams;
+    private PaquetePeticionClient PackagePet;
+    private PaqueteRecepcionClient PackageRec;
 
     public PCBuilderIGU(int Type) {
         initComponents();
         //jTabbedPane1.setEnabledAt(0, false);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -34,36 +60,35 @@ public class PCBuilderIGU extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         addArtSelectedBtn = new javax.swing.JButton();
         moreInfoBtn = new javax.swing.JButton();
-        selectionBtn = new javax.swing.JButton();
+        ViewSelectedListBtn = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
+        PanelMother = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
+        TableMother = new javax.swing.JTable();
+        PanelProcesador = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jPanel6 = new javax.swing.JPanel();
+        TableProcesador = new javax.swing.JTable();
+        PanelCooler = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jPanel7 = new javax.swing.JPanel();
+        TableCooler = new javax.swing.JTable();
+        PanelRam = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jPanel8 = new javax.swing.JPanel();
+        TableRam = new javax.swing.JTable();
+        PanelGPU = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
-        jPanel9 = new javax.swing.JPanel();
+        TableGPU = new javax.swing.JTable();
+        PanelAlmacenamiento = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
-        jPanel10 = new javax.swing.JPanel();
+        TableAlmacenamiento = new javax.swing.JTable();
+        PanelFuente = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
-        jPanel11 = new javax.swing.JPanel();
+        TableFuente = new javax.swing.JTable();
+        PanelGabinete = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
-        jPanel12 = new javax.swing.JPanel();
+        TableGabinete = new javax.swing.JTable();
+        PanelEnd = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
+        TableEnd = new javax.swing.JTable();
         nextBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         updateListBtn = new javax.swing.JButton();
@@ -82,7 +107,6 @@ public class PCBuilderIGU extends javax.swing.JFrame {
 
         titleArtTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         titleArtTxt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        titleArtTxt.setCaretPosition(0);
         titleArtTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         titleArtTxt.setEnabled(false);
         titleArtTxt.setPreferredSize(new java.awt.Dimension(71, 24));
@@ -92,7 +116,6 @@ public class PCBuilderIGU extends javax.swing.JFrame {
 
         marcaTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         marcaTxt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        marcaTxt.setCaretPosition(0);
         marcaTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         marcaTxt.setEnabled(false);
         marcaTxt.setPreferredSize(new java.awt.Dimension(71, 24));
@@ -125,14 +148,19 @@ public class PCBuilderIGU extends javax.swing.JFrame {
         moreInfoBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
         moreInfoBtn.setPreferredSize(new java.awt.Dimension(128, 32));
 
-        selectionBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        selectionBtn.setIcon(new ImageIcon("src/main/java/com/rubenrdc/pcbuilder/IGU/miselaneos/Selections25x25.png"));
-        selectionBtn.setText("0");
-        selectionBtn.setFocusable(false);
-        selectionBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        selectionBtn.setPreferredSize(new java.awt.Dimension(30, 30));
-        selectionBtn.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        selectionBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ViewSelectedListBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ViewSelectedListBtn.setIcon(new ImageIcon("src/main/java/com/rubenrdc/pcbuilder/IGU/miselaneos/Selections25x25.png"));
+        ViewSelectedListBtn.setText("0");
+        ViewSelectedListBtn.setFocusable(false);
+        ViewSelectedListBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        ViewSelectedListBtn.setPreferredSize(new java.awt.Dimension(30, 30));
+        ViewSelectedListBtn.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        ViewSelectedListBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ViewSelectedListBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ViewSelectedListBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -154,17 +182,15 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addArtSelectedBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(moreInfoBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selectionBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(ViewSelectedListBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(imgLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, 0))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(selectionBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ViewSelectedListBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,8 +228,8 @@ public class PCBuilderIGU extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(null);
 
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableMother.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableMother.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 null
             },
@@ -215,43 +241,32 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable1.setRowHeight(25);
-        jScrollPane1.setViewportView(jTable1);
+        TableMother.setRowHeight(25);
+        jScrollPane1.setViewportView(TableMother);
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelMotherLayout = new javax.swing.GroupLayout(PanelMother);
+        PanelMother.setLayout(PanelMotherLayout);
+        PanelMotherLayout.setHorizontalGroup(
+            PanelMotherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMotherLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        PanelMotherLayout.setVerticalGroup(
+            PanelMotherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMotherLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Placa Base", jPanel3);
+        jTabbedPane1.addTab("Placa Base", PanelMother);
 
         jScrollPane2.setBorder(null);
 
-        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TableProcesador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableProcesador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 null
             },
@@ -263,32 +278,32 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable2.setRowHeight(25);
-        jScrollPane2.setViewportView(jTable2);
+        TableProcesador.setRowHeight(25);
+        jScrollPane2.setViewportView(TableProcesador);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelProcesadorLayout = new javax.swing.GroupLayout(PanelProcesador);
+        PanelProcesador.setLayout(PanelProcesadorLayout);
+        PanelProcesadorLayout.setHorizontalGroup(
+            PanelProcesadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelProcesadorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        PanelProcesadorLayout.setVerticalGroup(
+            PanelProcesadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelProcesadorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Procesador", jPanel4);
+        jTabbedPane1.addTab("Procesador", PanelProcesador);
 
         jScrollPane3.setBorder(null);
 
-        jTable3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        TableCooler.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableCooler.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 null
             },
@@ -300,32 +315,32 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable3.setRowHeight(25);
-        jScrollPane3.setViewportView(jTable3);
+        TableCooler.setRowHeight(25);
+        jScrollPane3.setViewportView(TableCooler);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelCoolerLayout = new javax.swing.GroupLayout(PanelCooler);
+        PanelCooler.setLayout(PanelCoolerLayout);
+        PanelCoolerLayout.setHorizontalGroup(
+            PanelCoolerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelCoolerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        PanelCoolerLayout.setVerticalGroup(
+            PanelCoolerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelCoolerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Cooler", jPanel6);
+        jTabbedPane1.addTab("Cooler", PanelCooler);
 
         jScrollPane4.setBorder(null);
 
-        jTable4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        TableRam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableRam.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 null
             },
@@ -337,32 +352,32 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable4.setRowHeight(25);
-        jScrollPane4.setViewportView(jTable4);
+        TableRam.setRowHeight(25);
+        jScrollPane4.setViewportView(TableRam);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelRamLayout = new javax.swing.GroupLayout(PanelRam);
+        PanelRam.setLayout(PanelRamLayout);
+        PanelRamLayout.setHorizontalGroup(
+            PanelRamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelRamLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        PanelRamLayout.setVerticalGroup(
+            PanelRamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelRamLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Ram", jPanel7);
+        jTabbedPane1.addTab("Ram", PanelRam);
 
         jScrollPane5.setBorder(null);
 
-        jTable5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        TableGPU.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableGPU.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 null
             },
@@ -374,32 +389,32 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable5.setRowHeight(25);
-        jScrollPane5.setViewportView(jTable5);
+        TableGPU.setRowHeight(25);
+        jScrollPane5.setViewportView(TableGPU);
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelGPULayout = new javax.swing.GroupLayout(PanelGPU);
+        PanelGPU.setLayout(PanelGPULayout);
+        PanelGPULayout.setHorizontalGroup(
+            PanelGPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGPULayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        PanelGPULayout.setVerticalGroup(
+            PanelGPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGPULayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("GPU", jPanel8);
+        jTabbedPane1.addTab("GPU", PanelGPU);
 
         jScrollPane6.setBorder(null);
 
-        jTable6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        TableAlmacenamiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableAlmacenamiento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 null
             },
@@ -411,32 +426,32 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable6.setRowHeight(25);
-        jScrollPane6.setViewportView(jTable6);
+        TableAlmacenamiento.setRowHeight(25);
+        jScrollPane6.setViewportView(TableAlmacenamiento);
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelAlmacenamientoLayout = new javax.swing.GroupLayout(PanelAlmacenamiento);
+        PanelAlmacenamiento.setLayout(PanelAlmacenamientoLayout);
+        PanelAlmacenamientoLayout.setHorizontalGroup(
+            PanelAlmacenamientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAlmacenamientoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        PanelAlmacenamientoLayout.setVerticalGroup(
+            PanelAlmacenamientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAlmacenamientoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Almacenamiento", jPanel9);
+        jTabbedPane1.addTab("Almacenamiento", PanelAlmacenamiento);
 
         jScrollPane7.setBorder(null);
 
-        jTable7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        TableFuente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableFuente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 null
             },
@@ -448,32 +463,32 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable7.setRowHeight(25);
-        jScrollPane7.setViewportView(jTable7);
+        TableFuente.setRowHeight(25);
+        jScrollPane7.setViewportView(TableFuente);
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelFuenteLayout = new javax.swing.GroupLayout(PanelFuente);
+        PanelFuente.setLayout(PanelFuenteLayout);
+        PanelFuenteLayout.setHorizontalGroup(
+            PanelFuenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelFuenteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+        PanelFuenteLayout.setVerticalGroup(
+            PanelFuenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelFuenteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Fuente", jPanel10);
+        jTabbedPane1.addTab("Fuente", PanelFuente);
 
         jScrollPane8.setBorder(null);
 
-        jTable8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        TableGabinete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableGabinete.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 null
             },
@@ -485,32 +500,32 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable8.setRowHeight(25);
-        jScrollPane8.setViewportView(jTable8);
+        TableGabinete.setRowHeight(25);
+        jScrollPane8.setViewportView(TableGabinete);
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelGabineteLayout = new javax.swing.GroupLayout(PanelGabinete);
+        PanelGabinete.setLayout(PanelGabineteLayout);
+        PanelGabineteLayout.setHorizontalGroup(
+            PanelGabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGabineteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
+        PanelGabineteLayout.setVerticalGroup(
+            PanelGabineteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGabineteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Gabinete", jPanel11);
+        jTabbedPane1.addTab("Gabinete", PanelGabinete);
 
         jScrollPane9.setBorder(null);
 
-        jTable9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+        TableEnd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableEnd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 null
             },
@@ -522,27 +537,27 @@ public class PCBuilderIGU extends javax.swing.JFrame {
                 return false;
             }
         });
-        jTable9.setRowHeight(25);
-        jScrollPane9.setViewportView(jTable9);
+        TableEnd.setRowHeight(25);
+        jScrollPane9.setViewportView(TableEnd);
 
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelEndLayout = new javax.swing.GroupLayout(PanelEnd);
+        PanelEnd.setLayout(PanelEndLayout);
+        PanelEndLayout.setHorizontalGroup(
+            PanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEndLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
+        PanelEndLayout.setVerticalGroup(
+            PanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEndLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Finalizar", jPanel12);
+        jTabbedPane1.addTab("Finalizar", PanelEnd);
 
         nextBtn.setText("Paso Siguiente ->");
         nextBtn.setFocusable(false);
@@ -628,36 +643,85 @@ public class PCBuilderIGU extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-        indexSelected = jTabbedPane1.getSelectedIndex();
-        System.out.println(jTabbedPane1.getSelectedIndex());
+        //indexSelected = jTabbedPane1.getSelectedIndex();
+        //System.out.println(jTabbedPane1.getSelectedIndex());
         //jTabbedPane1.setSelectedIndex(7);
-        
+
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void nextBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextBtnMouseClicked
-        if (indexSelected < (jTabbedPane1.getTabCount() - 1)) {
-            indexSelected++;
-            jTabbedPane1.setSelectedIndex(indexSelected);
-        }
-        if (indexSelected>0) {
-            backBtn.setEnabled(true);
+        if (nextBtn.isEnabled()) {
+            goNextPage();
         }
     }//GEN-LAST:event_nextBtnMouseClicked
 
     private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
-        if ((jTabbedPane1.getTabCount() - 1) >= indexSelected & indexSelected > 0) {
-            indexSelected--;
-            jTabbedPane1.setSelectedIndex(indexSelected);
-        }
-        if (indexSelected==0) {
-            backBtn.setEnabled(false);
+        if (backBtn.isEnabled()) {
+            goBackPage();
         }
     }//GEN-LAST:event_backBtnMouseClicked
 
-    private void getInfoBasicArts() {
+    private void ViewSelectedListBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewSelectedListBtnMouseClicked
+        frameAdmin.OpenNewFrame(FrameAdmin.TYPE_SELECTED_ART_LIST);
+    }//GEN-LAST:event_ViewSelectedListBtnMouseClicked
 
+    private void goNextPage() {
+        if (indexSelected < (jTabbedPane1.getTabCount() - 1)) {
+            indexSelected++;
+            jTabbedPane1.setSelectedIndex(indexSelected);
+        }
+        if (indexSelected > 0) {
+            backBtn.setEnabled(true);
+        }
+        if (indexSelected == (jTabbedPane1.getTabCount() - 1)) {
+            nextBtn.setEnabled(false);
+            updateListBtn.setEnabled(false);
+        }
     }
+
+    private void goBackPage() {
+        if (indexSelected <= (jTabbedPane1.getTabCount() - 1) & indexSelected > 0) {
+            indexSelected--;
+            jTabbedPane1.setSelectedIndex(indexSelected);
+        }
+        if (indexSelected == 0) {
+            backBtn.setEnabled(false);
+        }
+        if (indexSelected != (jTabbedPane1.getTabCount() - 1)) {
+            nextBtn.setEnabled(true);
+            updateListBtn.setEnabled(true);
+        }
+    }
+
+    private <T extends Articulo> void llenarTabla(javax.swing.JTable table, List<T> lista) {
+        clearTable(table);
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
+        for (T articulo : lista) {
+            model.addRow(articulo.getRow());
+        }
+        table.setModel(model);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelAlmacenamiento;
+    private javax.swing.JPanel PanelCooler;
+    private javax.swing.JPanel PanelEnd;
+    private javax.swing.JPanel PanelFuente;
+    private javax.swing.JPanel PanelGPU;
+    private javax.swing.JPanel PanelGabinete;
+    private javax.swing.JPanel PanelMother;
+    private javax.swing.JPanel PanelProcesador;
+    private javax.swing.JPanel PanelRam;
+    private javax.swing.JTable TableAlmacenamiento;
+    private javax.swing.JTable TableCooler;
+    private javax.swing.JTable TableEnd;
+    private javax.swing.JTable TableFuente;
+    private javax.swing.JTable TableGPU;
+    private javax.swing.JTable TableGabinete;
+    private javax.swing.JTable TableMother;
+    private javax.swing.JTable TableProcesador;
+    private javax.swing.JTable TableRam;
+    private javax.swing.JButton ViewSelectedListBtn;
     private javax.swing.JButton addArtSelectedBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel imgLabel;
@@ -666,17 +730,7 @@ public class PCBuilderIGU extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -687,19 +741,9 @@ public class PCBuilderIGU extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable8;
-    private javax.swing.JTable jTable9;
     private javax.swing.JTextField marcaTxt;
     private javax.swing.JButton moreInfoBtn;
     private javax.swing.JButton nextBtn;
-    private javax.swing.JButton selectionBtn;
     private javax.swing.JTextField titleArtTxt;
     private javax.swing.JButton updateListBtn;
     private javax.swing.JTextField varArt1Txt;
