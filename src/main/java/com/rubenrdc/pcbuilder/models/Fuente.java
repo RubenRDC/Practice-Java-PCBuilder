@@ -2,6 +2,7 @@ package com.rubenrdc.pcbuilder.models;
 
 import java.io.Serializable;
 import javax.swing.ImageIcon;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -14,14 +15,14 @@ public class Fuente extends Articulo implements Serializable {
     private String WiringType, Certification, Factor;
     private boolean Pin24Connector, IncludeCable;
     private Object row[];
-    
+
     public Fuente(String title, String marca) {
         super(title, marca);
     }
-    
+
     //Basic Information
-    public Fuente(ImageIcon imagen, String title, String marca, int RealWatts, String Factor) {
-        super(imagen, title, marca);
+    public Fuente(ObjectId id, ImageIcon imagen, String title, String marca, int RealWatts, String Factor) {
+        super(id, imagen, title, marca);
         this.RealWatts = RealWatts;
         this.Factor = Factor;
     }
@@ -57,6 +58,7 @@ public class Fuente extends Articulo implements Serializable {
     public boolean isIncludeCable() {
         return IncludeCable;
     }
+
     public Object[] getRow() {
         row = new Object[4];
         row[0] = super.getTitle();

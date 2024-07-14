@@ -692,7 +692,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             updateListBtn.setEnabled(true);
         }
     }
-
+    
     private <T extends Articulo> void llenarTabla(javax.swing.JTable table, List<T> lista) {
         clearTable(table);
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
