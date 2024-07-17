@@ -62,12 +62,12 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         moreInfoBtn = new javax.swing.JButton();
         ViewSelectedListBtn = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        PanelMother = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TableMother = new javax.swing.JTable();
         PanelProcesador = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableProcesador = new javax.swing.JTable();
+        PanelMother = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TableMother = new javax.swing.JTable();
         PanelCooler = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TableCooler = new javax.swing.JTable();
@@ -226,43 +226,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
 
-        jScrollPane1.setBorder(null);
-
-        TableMother.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TableMother.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                null
-            },
-            new String [] {
-
-            }
-        ){
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return false;
-            }
-        });
-        TableMother.setRowHeight(25);
-        jScrollPane1.setViewportView(TableMother);
-
-        javax.swing.GroupLayout PanelMotherLayout = new javax.swing.GroupLayout(PanelMother);
-        PanelMother.setLayout(PanelMotherLayout);
-        PanelMotherLayout.setHorizontalGroup(
-            PanelMotherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelMotherLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        PanelMotherLayout.setVerticalGroup(
-            PanelMotherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelMotherLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Placa Base", PanelMother);
-
         jScrollPane2.setBorder(null);
 
         TableProcesador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -299,6 +262,43 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         );
 
         jTabbedPane1.addTab("Procesador", PanelProcesador);
+
+        jScrollPane1.setBorder(null);
+
+        TableMother.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableMother.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                null
+            },
+            new String [] {
+
+            }
+        ){
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        });
+        TableMother.setRowHeight(25);
+        jScrollPane1.setViewportView(TableMother);
+
+        javax.swing.GroupLayout PanelMotherLayout = new javax.swing.GroupLayout(PanelMother);
+        PanelMother.setLayout(PanelMotherLayout);
+        PanelMotherLayout.setHorizontalGroup(
+            PanelMotherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMotherLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        PanelMotherLayout.setVerticalGroup(
+            PanelMotherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMotherLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Placa Base", PanelMother);
 
         jScrollPane3.setBorder(null);
 

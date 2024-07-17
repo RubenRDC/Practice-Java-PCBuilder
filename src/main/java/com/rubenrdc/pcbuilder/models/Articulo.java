@@ -2,12 +2,13 @@ package com.rubenrdc.pcbuilder.models;
 
 import javax.swing.ImageIcon;
 import org.bson.types.ObjectId;
+
 /**
  *
  * @author Ruben
  */
 public class Articulo implements Comparable {
-    
+
     private ObjectId id;
     private String title, marca, oficialDocumentation;
     private ImageIcon imagen;
@@ -18,11 +19,23 @@ public class Articulo implements Comparable {
         this.marca = marca;
     }
 
-    public Articulo(ObjectId id,ImageIcon imagen, String title, String marca) {
-        this.id=id;
+    public Articulo(ObjectId id, ImageIcon imagen, String title, String marca) {
+        this.id = id;
         this.imagen = imagen;
         this.title = title;
         this.marca = marca;
+    }
+
+    public Articulo(ObjectId id, ImageIcon imagen, String title, String marca, String oficialDocumentation) {
+        this.id = id;
+        this.imagen = imagen;
+        this.title = title;
+        this.marca = marca;
+        this.oficialDocumentation = oficialDocumentation;
+    }
+
+    public ObjectId getId() {
+        return id;
     }
 
     public String getTitle() {
