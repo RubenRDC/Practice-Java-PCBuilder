@@ -1,4 +1,4 @@
-package com.rubenrdc.pcbuilder.models.paquete;
+package com.rubenrdc.pcbuilderserver.models.paquete;
 
 /**
  *

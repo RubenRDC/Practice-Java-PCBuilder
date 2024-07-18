@@ -2,18 +2,7 @@ package com.rubenrdc.pcbuilder.IGU;
 
 import com.rubenrdc.pcbuilder.FrameAdmin;
 import com.rubenrdc.pcbuilder.IGU.interfaces.Utilities;
-import com.rubenrdc.pcbuilder.models.Almacenamiento;
 import com.rubenrdc.pcbuilder.models.Articulo;
-import com.rubenrdc.pcbuilder.models.Cooler;
-import com.rubenrdc.pcbuilder.models.Fuente;
-import com.rubenrdc.pcbuilder.models.GPU;
-import com.rubenrdc.pcbuilder.models.Gabinete;
-import com.rubenrdc.pcbuilder.models.MotherBoard;
-import com.rubenrdc.pcbuilder.models.Procesador;
-import com.rubenrdc.pcbuilder.models.Ram;
-import com.rubenrdc.pcbuilder.models.list.ListaSeleccion;
-import com.rubenrdc.pcbuilder.models.paquete.PaquetePeticionClient;
-import com.rubenrdc.pcbuilder.models.paquete.PaqueteRecepcionClient;
 import java.util.List;
 import javax.swing.ImageIcon;
 
@@ -26,17 +15,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     public static final int TYPE_INTEL = 0, TYPE_AMD = 1;
     private int indexSelected = 0;
     private final FrameAdmin frameAdmin = new FrameAdmin(this);
-    private final ListaSeleccion listaSeleccion = new ListaSeleccion();
-    private List<Almacenamiento> listStorages;
-    private List<Cooler> listCoolers;
-    private List<Fuente> listPowers;
-    private List<GPU> listGPUs;
-    private List<Gabinete> listTowers;
-    private List<MotherBoard> listMothers;
-    private List<Procesador> listCPUs;
-    private List<Ram> listRams;
-    private PaquetePeticionClient PackagePet;
-    private PaqueteRecepcionClient PackageRec;
 
     public PCBuilderIGU(int Type) {
         initComponents();
