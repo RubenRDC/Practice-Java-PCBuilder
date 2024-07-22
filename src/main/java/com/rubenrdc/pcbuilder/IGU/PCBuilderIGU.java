@@ -3,8 +3,10 @@ package com.rubenrdc.pcbuilder.IGU;
 import com.rubenrdc.pcbuilder.FrameAdmin;
 import com.rubenrdc.pcbuilder.IGU.interfaces.Utilities;
 import com.rubenrdc.pcbuilder.models.Articulo;
+import com.rubenrdc.pcbuilderserver.logic.LogicPacksAL;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,9 +17,12 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     public static final int TYPE_INTEL = 0, TYPE_AMD = 1;
     private int indexSelected = 0;
     private final FrameAdmin frameAdmin = new FrameAdmin(this);
+    private final LogicPacksAL logicDao = new LogicPacksAL();
 
     public PCBuilderIGU(int Type) {
         initComponents();
+        logicDao.setListCPUs(Type);
+        llenarTabla(TableProcesador,logicDao.getListCPUs());
         //jTabbedPane1.setEnabledAt(0, false);
     }
 
@@ -212,7 +217,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 null
             },
             new String [] {
-
+                "Titulo","Marca","N. Nucleos","N. Hilos","Frec. Turbo"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -220,6 +225,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
         TableProcesador.setRowHeight(25);
+        TableProcesador.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(TableProcesador);
 
         javax.swing.GroupLayout PanelProcesadorLayout = new javax.swing.GroupLayout(PanelProcesador);
@@ -670,16 +676,19 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             updateListBtn.setEnabled(true);
         }
     }
-    
+
     private <T extends Articulo> void llenarTabla(javax.swing.JTable table, List<T> lista) {
+        int e=0;
         clearTable(table);
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
         for (T articulo : lista) {
             model.addRow(articulo.getRow());
+            e++;
         }
+        JOptionPane.showMessageDialog(null, "Cantidad de elementos encontrados: "+e,"Lista Cargada.",JOptionPane.INFORMATION_MESSAGE);
         table.setModel(model);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelAlmacenamiento;
     private javax.swing.JPanel PanelCooler;
