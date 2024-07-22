@@ -1,17 +1,18 @@
 package com.rubenrdc.pcbuilder.models;
 
-import javax.swing.ImageIcon;
+import java.io.Serializable;
 import org.bson.types.ObjectId;
 
 /**
  *
  * @author Ruben
  */
-public class Articulo implements Comparable {
+public class Articulo implements Comparable, Serializable{
 
+    private static final long serialVersionUID = 1L;
     private ObjectId id;
     private String title, marca, oficialDocumentation;
-    private ImageIcon imagen;
+    private String imagen;
     private Object row[];
 
     public Articulo(String title, String marca) {
@@ -19,14 +20,14 @@ public class Articulo implements Comparable {
         this.marca = marca;
     }
 
-    public Articulo(ObjectId id, ImageIcon imagen, String title, String marca) {
+    public Articulo(ObjectId id, String imagen, String title, String marca) {
         this.id = id;
         this.imagen = imagen;
         this.title = title;
         this.marca = marca;
     }
 
-    public Articulo(ObjectId id, ImageIcon imagen, String title, String marca, String oficialDocumentation) {
+    public Articulo(ObjectId id, String imagen, String title, String marca, String oficialDocumentation) {
         this.id = id;
         this.imagen = imagen;
         this.title = title;
@@ -54,12 +55,12 @@ public class Articulo implements Comparable {
         this.marca = marca;
     }
 
-    public ImageIcon getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
     public void setImagen(String fileName) {
-        this.imagen = new ImageIcon(fileName);
+        this.imagen = fileName;
     }
 
     public String getOficialDocumentation() {
@@ -100,5 +101,8 @@ public class Articulo implements Comparable {
         row[0] = title;
         row[1] = marca;
         return row;
+    }
+    public int getEnergyConsumption(){
+        return 0;
     }
 }

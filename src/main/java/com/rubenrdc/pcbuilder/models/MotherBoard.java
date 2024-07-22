@@ -23,14 +23,14 @@ public class MotherBoard extends Articulo implements Serializable {
     }
 
     //Basic Information
-    public MotherBoard(ObjectId id, ImageIcon imagen, String title, String marca, String Chipset, String Factor) {
+    public MotherBoard(ObjectId id, String imagen, String title, String marca, String Chipset, String Factor) {
         super(id, imagen, title, marca);
         this.Chipset = Chipset;
         this.Factor = Factor;
     }
 
     //Complete Info
-    public MotherBoard(ObjectId id, ImageIcon imagen, String title, String marca, String Chipset, String Factor, String Family, String Socket, String MemoryType, int MemorySlots, int EnergyConsumption, int SataSlots, int PCIEx16Slots, int PCIEx1Slots, int M2NvmeSlots, int M2SataSlots, String oficialDocumentation) {
+    public MotherBoard(ObjectId id, String imagen, String title, String marca, String Chipset, String Factor, String Family, String Socket, String MemoryType, int MemorySlots, int EnergyConsumption, int SataSlots, int PCIEx16Slots, int PCIEx1Slots, int M2NvmeSlots, int M2SataSlots, String oficialDocumentation) {
         super(id, imagen, title, marca, oficialDocumentation);
         this.Family = Family;
         this.Socket = Socket;

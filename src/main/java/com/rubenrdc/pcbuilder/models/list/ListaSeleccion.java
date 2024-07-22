@@ -27,9 +27,9 @@ public class ListaSeleccion<E extends Articulo> extends ArrayList<E> {
         if (!this.isEmpty()) {
             //Obtengo el index del objeto q coincida con el recibido en parametros
             int indexOf = this.indexOf(Art);
-            
+
             int duplicateTypeIndex = getDuplicateIndexType(Art);
-            
+
             if (duplicateTypeIndex == -1) {
                 if (indexOf != -1) {
                     cantArts.set(indexOf, (cantArts.get(indexOf) + 1));
@@ -67,8 +67,8 @@ public class ListaSeleccion<E extends Articulo> extends ArrayList<E> {
 
     @Override
     public E remove(int index) {
-        
-        for (int i = (this.size()-1); i >= index; i--) {
+
+        for (int i = (this.size() - 1); i >= index; i--) {
             cantArts.remove(i);
             super.remove(i);
         }
@@ -114,4 +114,11 @@ public class ListaSeleccion<E extends Articulo> extends ArrayList<E> {
         return -1;
     }
 
+    public int getConsumoActual() {
+        int total = 0;
+        for (E e : this) {
+            total += e.getEnergyConsumption();
+        }
+        return total;
+    }
 }
