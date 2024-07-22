@@ -18,6 +18,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -38,14 +39,12 @@ public class LogicPacksAL<T extends Articulo> {
     public LogicPacksAL() {
     }
 
-    private T Articulo;
-
-    public PaqueteRecepcionClient sendPackagePet(int TYPE_PAQ, int TYPE_ART, Object PARAM) {
+    public static PaqueteRecepcionClient sendPackagePet(int TYPE_PAQ, int TYPE_ART, Object PARAM) {
         try {
             Socket s = new Socket("localhost", 8765);
             ObjectOutputStream o = new ObjectOutputStream(s.getOutputStream());
             o.writeObject(new PaquetePeticionClient(TYPE_PAQ, TYPE_ART, PARAM));
-
+            System.out.println(PARAM);
             ObjectInputStream i = new ObjectInputStream(s.getInputStream());
             PaqueteRecepcionClient PackageRec = (PaqueteRecepcionClient) i.readObject();
 
@@ -70,10 +69,10 @@ public class LogicPacksAL<T extends Articulo> {
     }
 
     public void setListCoolers(String socketCPU, int TDPCPU) {
-        param.clear();
         param.put("socketCPU", socketCPU);
         param.put("TDPCPU", TDPCPU);
         this.listCoolers = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_COOLER, param).getListArts();
+        param.clear();
     }
 
     public void setListRams(String Type) {
@@ -92,16 +91,19 @@ public class LogicPacksAL<T extends Articulo> {
         this.listPowers = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_POWER, currentTotalW).getListArts();
     }
 
-    public void setListTowers(String factorMother, String powerFactor, int lengthGPU,String TypeCooler) {
-        param.clear();
+    public void setListTowers(String factorMother, String powerFactor, int lengthGPU, String TypeCooler, int highCooler, int CoolersFans, int sizeCoolerFans) {
         param.put("factorMother", factorMother);
         param.put("powerFactor", powerFactor);
-
-        //this.listTowers = listTowers;
+        param.put("TypeCooler", TypeCooler);
+        param.put("highCooler", highCooler);
+        param.put("lenghtCoolerFans", (sizeCoolerFans * CoolersFans));
+        param.put("lengthGPU", lengthGPU);
+        this.listTowers = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_POWER, param).getListArts();
+        param.clear();
     }
 
-    public void setArticulo(T Articulo) {
-        this.Articulo = Articulo;
+    public static Articulo getMoreInfoArt(ObjectId idArt, int PaqueteTYPE_ART) {
+        return sendPackagePet(Paquete.TYPE_GET_MORE_INFO, PaqueteTYPE_ART, idArt).getArtCompl();
     }
 
     public List<Procesador> getListCPUs() {
