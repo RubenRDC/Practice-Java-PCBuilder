@@ -67,12 +67,12 @@ public class ListaSeleccion<E extends Articulo> extends ArrayList<E> {
 
     @Override
     public E remove(int index) {
-
+        E LastElement=null;
         for (int i = (this.size() - 1); i >= index; i--) {
             cantArts.remove(i);
-            super.remove(i);
+            LastElement = super.remove(i);
         }
-        return null;
+        return LastElement;
     }
 
     @Override
@@ -120,5 +120,14 @@ public class ListaSeleccion<E extends Articulo> extends ArrayList<E> {
             total += e.getEnergyConsumption();
         }
         return total;
+    }
+
+    public E getSeleccionExpecifica(String Class) {
+        for (E e : this) {
+            if (e.getClass().getSimpleName().equalsIgnoreCase(Class)) {
+                return e;
+            }
+        }
+        return null;
     }
 }
