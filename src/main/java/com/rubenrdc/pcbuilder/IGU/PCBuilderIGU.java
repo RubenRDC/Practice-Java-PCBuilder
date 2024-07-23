@@ -2,9 +2,9 @@ package com.rubenrdc.pcbuilder.IGU;
 
 import com.rubenrdc.pcbuilder.FrameAdmin;
 import com.rubenrdc.pcbuilder.IGU.interfaces.Utilities;
-import com.rubenrdc.pcbuilder.models.Articulo;
+import com.rubenrdc.pcbuilder.models.*;
+import com.rubenrdc.pcbuilder.models.list.ListaSeleccion;
 import com.rubenrdc.pcbuilderserver.logic.LogicPacksAL;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -15,14 +15,14 @@ import javax.swing.JOptionPane;
 public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
 
     public static final int TYPE_INTEL = 0, TYPE_AMD = 1;
-    private int indexSelected = 0;
+    private int pageSelected = 0, selectedType = 0;
     private final FrameAdmin frameAdmin = new FrameAdmin(this);
     private final LogicPacksAL logicDao = new LogicPacksAL();
+    private final ListaSeleccion listSeleccion = new ListaSeleccion();
 
     public PCBuilderIGU(int Type) {
         initComponents();
-        logicDao.setListCPUs(Type);
-        llenarTabla(TableProcesador,logicDao.getListCPUs());
+        this.selectedType = Type;
         //jTabbedPane1.setEnabledAt(0, false);
     }
 
@@ -31,16 +31,16 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        panelBasicInfo = new javax.swing.JPanel();
         imgLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        titleArtTxt = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        marcaTxt = new javax.swing.JTextField();
-        varArt1Txt = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        varArt2Txt = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        labelInfo1 = new javax.swing.JLabel();
+        txtInfo1 = new javax.swing.JTextField();
+        labelInfo2 = new javax.swing.JLabel();
+        txtInfo2 = new javax.swing.JTextField();
+        txtInfo3 = new javax.swing.JTextField();
+        labelInfo3 = new javax.swing.JLabel();
+        txtInfo4 = new javax.swing.JTextField();
+        labelInfo4 = new javax.swing.JLabel();
         addArtSelectedBtn = new javax.swing.JButton();
         moreInfoBtn = new javax.swing.JButton();
         ViewSelectedListBtn = new javax.swing.JButton();
@@ -80,51 +80,61 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         setMaximumSize(null);
         setMinimumSize(null);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         imgLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         imgLabel.setPreferredSize(new java.awt.Dimension(200, 200));
         imgLabel.setRequestFocusEnabled(false);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Titulo:");
+        labelInfo1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelInfo1.setText("Titulo:");
 
-        titleArtTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        titleArtTxt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        titleArtTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        titleArtTxt.setEnabled(false);
-        titleArtTxt.setPreferredSize(new java.awt.Dimension(71, 24));
+        txtInfo1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtInfo1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txtInfo1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtInfo1.setEnabled(false);
+        txtInfo1.setPreferredSize(new java.awt.Dimension(71, 24));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Marca:");
+        labelInfo2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelInfo2.setText("Marca:");
 
-        marcaTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        marcaTxt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        marcaTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        marcaTxt.setEnabled(false);
-        marcaTxt.setPreferredSize(new java.awt.Dimension(71, 24));
+        txtInfo2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtInfo2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txtInfo2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtInfo2.setEnabled(false);
+        txtInfo2.setPreferredSize(new java.awt.Dimension(71, 24));
 
-        varArt1Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        varArt1Txt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        varArt1Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        varArt1Txt.setEnabled(false);
-        varArt1Txt.setPreferredSize(new java.awt.Dimension(71, 24));
+        txtInfo3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtInfo3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txtInfo3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtInfo3.setEnabled(false);
+        txtInfo3.setPreferredSize(new java.awt.Dimension(71, 24));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Chipset:");
+        labelInfo3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelInfo3.setText("Chipset:");
 
-        varArt2Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        varArt2Txt.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        varArt2Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        varArt2Txt.setEnabled(false);
-        varArt2Txt.setPreferredSize(new java.awt.Dimension(71, 24));
+        txtInfo4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtInfo4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        txtInfo4.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtInfo4.setEnabled(false);
+        txtInfo4.setPreferredSize(new java.awt.Dimension(71, 24));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Factor:");
+        labelInfo4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelInfo4.setText("Factor:");
 
         addArtSelectedBtn.setText("Añadir Seleccion");
         addArtSelectedBtn.setFocusable(false);
         addArtSelectedBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
         addArtSelectedBtn.setPreferredSize(new java.awt.Dimension(128, 32));
+        addArtSelectedBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addArtSelectedBtnMouseClicked(evt);
+            }
+        });
 
         moreInfoBtn.setText("Ver Mas Info");
         moreInfoBtn.setFocusable(false);
@@ -145,53 +155,53 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBasicInfoLayout = new javax.swing.GroupLayout(panelBasicInfo);
+        panelBasicInfo.setLayout(panelBasicInfoLayout);
+        panelBasicInfoLayout.setHorizontalGroup(
+            panelBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBasicInfoLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(titleArtTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(marcaTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(varArt1Txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(varArt2Txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(panelBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtInfo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelInfo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtInfo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelInfo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtInfo3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelInfo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtInfo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBasicInfoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addArtSelectedBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(moreInfoBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ViewSelectedListBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(imgLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, 0))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelBasicInfoLayout.setVerticalGroup(
+            panelBasicInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBasicInfoLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(ViewSelectedListBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(titleArtTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(marcaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelInfo3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(varArt1Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtInfo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelInfo4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(varArt2Txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtInfo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(moreInfoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -226,6 +236,11 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         });
         TableProcesador.setRowHeight(25);
         TableProcesador.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TableProcesador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableProcesadorMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TableProcesador);
 
         javax.swing.GroupLayout PanelProcesadorLayout = new javax.swing.GroupLayout(PanelProcesador);
@@ -255,7 +270,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 null
             },
             new String [] {
-
+                "Titulo","Marca","Chipset","Factor"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -263,6 +278,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
         TableMother.setRowHeight(25);
+        TableMother.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(TableMother);
 
         javax.swing.GroupLayout PanelMotherLayout = new javax.swing.GroupLayout(PanelMother);
@@ -292,7 +308,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 null
             },
             new String [] {
-
+                "Titulo","Marca","Tipo","TDP"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -300,6 +316,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
         TableCooler.setRowHeight(25);
+        TableCooler.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(TableCooler);
 
         javax.swing.GroupLayout PanelCoolerLayout = new javax.swing.GroupLayout(PanelCooler);
@@ -329,7 +346,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 null
             },
             new String [] {
-
+                "Titulo","Marca","Capacidad","Frecuencia"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -337,6 +354,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
         TableRam.setRowHeight(25);
+        TableRam.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(TableRam);
 
         javax.swing.GroupLayout PanelRamLayout = new javax.swing.GroupLayout(PanelRam);
@@ -366,7 +384,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 null
             },
             new String [] {
-
+                "Titulo","Marca","Tipo de Memoria","MemoriaVram"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -374,6 +392,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
         TableGPU.setRowHeight(25);
+        TableGPU.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane5.setViewportView(TableGPU);
 
         javax.swing.GroupLayout PanelGPULayout = new javax.swing.GroupLayout(PanelGPU);
@@ -403,7 +422,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 null
             },
             new String [] {
-
+                "Titulo","Marca","Tipo","Factor"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -411,6 +430,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
         TableAlmacenamiento.setRowHeight(25);
+        TableAlmacenamiento.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane6.setViewportView(TableAlmacenamiento);
 
         javax.swing.GroupLayout PanelAlmacenamientoLayout = new javax.swing.GroupLayout(PanelAlmacenamiento);
@@ -440,7 +460,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 null
             },
             new String [] {
-
+                "Titulo","Marca","Watts Reales","Factor"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -448,6 +468,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
         TableFuente.setRowHeight(25);
+        TableFuente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane7.setViewportView(TableFuente);
 
         javax.swing.GroupLayout PanelFuenteLayout = new javax.swing.GroupLayout(PanelFuente);
@@ -477,7 +498,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 null
             },
             new String [] {
-
+                "Titulo","Marca","Factor Mother","Factor Fuente"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -485,6 +506,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         });
         TableGabinete.setRowHeight(25);
+        TableGabinete.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane8.setViewportView(TableGabinete);
 
         javax.swing.GroupLayout PanelGabineteLayout = new javax.swing.GroupLayout(PanelGabinete);
@@ -584,7 +606,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                         .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(8, 8, 8)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBasicInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(8, 8, 8))
         );
         jPanel1Layout.setVerticalGroup(
@@ -592,7 +614,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBasicInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -626,10 +648,38 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void goNextPage() {
+        if (pageSelected < (jTabbedPane1.getTabCount() - 1)) {
+            if (getNextPageInfo(pageSelected)) {
+                pageSelected++;
+                jTabbedPane1.setSelectedIndex(pageSelected);
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione un articulo en la lista actual para\nencontrar los componentes compatibles q lo prosiguen.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (pageSelected > 0) {
+            backBtn.setEnabled(true);
+        } else if (pageSelected == (jTabbedPane1.getTabCount() - 1)) {
+            nextBtn.setEnabled(false);
+            updateListBtn.setEnabled(false);
+        }
+    }
+
+    private void goBackPage() {
+        if (pageSelected <= (jTabbedPane1.getTabCount() - 1) & pageSelected > 0) {
+            pageSelected--;
+            jTabbedPane1.setSelectedIndex(pageSelected);
+        }
+        if (pageSelected == 0) {
+            backBtn.setEnabled(false);
+        }
+        if (pageSelected != (jTabbedPane1.getTabCount() - 1)) {
+            nextBtn.setEnabled(true);
+            updateListBtn.setEnabled(true);
+        }
+    }
+
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-        //indexSelected = jTabbedPane1.getSelectedIndex();
-        //System.out.println(jTabbedPane1.getSelectedIndex());
-        //jTabbedPane1.setSelectedIndex(7);
 
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
@@ -637,6 +687,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         if (nextBtn.isEnabled()) {
             goNextPage();
         }
+
     }//GEN-LAST:event_nextBtnMouseClicked
 
     private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
@@ -646,47 +697,145 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     }//GEN-LAST:event_backBtnMouseClicked
 
     private void ViewSelectedListBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewSelectedListBtnMouseClicked
-        frameAdmin.OpenNewFrame(FrameAdmin.TYPE_SELECTED_ART_LIST);
+        if (!listSeleccion.isEmpty()) {
+            frameAdmin.OpenNewFrame(FrameAdmin.TYPE_SELECTED_ART_LIST);
+        }
     }//GEN-LAST:event_ViewSelectedListBtnMouseClicked
 
-    private void goNextPage() {
-        if (indexSelected < (jTabbedPane1.getTabCount() - 1)) {
-            indexSelected++;
-            jTabbedPane1.setSelectedIndex(indexSelected);
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        logicDao.setListCPUs(selectedType);
+        llenarTabla(TableProcesador, logicDao.getListCPUs());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void TableProcesadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProcesadorMouseClicked
+        int selectedRow = TableProcesador.getSelectedRow();
+        if (selectedRow != -1) {
+            setInfoBasic(pageSelected, (Procesador) logicDao.getListCPUs().get(selectedRow));
         }
-        if (indexSelected > 0) {
-            backBtn.setEnabled(true);
+    }//GEN-LAST:event_TableProcesadorMouseClicked
+
+    private void addArtSelectedBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addArtSelectedBtnMouseClicked
+        
+        //Aqui Falta!!!!!!!!!
+        listSeleccion.add(logicDao.getListCPUs().get(TableProcesador.getSelectedRow()));
+        goNextPage();
+    }//GEN-LAST:event_addArtSelectedBtnMouseClicked
+
+    private boolean getNextPageInfo(int pageActual) {
+        switch (pageActual) {
+            case 0://Se encuentra en la pagina de Procesador
+                Procesador p = (Procesador) listSeleccion.getSeleccionExpecifica("Procesador");
+                if (p != null) {
+                    logicDao.setListMothers(p.getSocket());
+                    llenarTabla(this.TableMother, logicDao.getListMothers());
+                    return true;
+                }
+                break;
+            case 1://Pagina Mother
+                p = (Procesador) listSeleccion.getSeleccionExpecifica("Procesador");
+                if (p != null) {
+                    logicDao.setListCoolers(p.getSocket(), p.getTDP());
+                    llenarTabla(this.TableCooler, logicDao.getListCoolers());
+                    return true;
+                }
+            case 2://Pagina Cooler
+                MotherBoard m = (MotherBoard) listSeleccion.getSeleccionExpecifica("MotherBoard");
+                if (m != null) {
+                    logicDao.setListRams(m.getMemoryType());
+                    llenarTabla(this.TableCooler, logicDao.getListRams());
+                    return true;
+                }
+                break;
+            case 3://Pagina Ram
+                logicDao.setListGPUs();
+                llenarTabla(this.TableGPU, logicDao.getListGPUs());
+                return true;
+            case 4://Pagina GPU
+                logicDao.setListStorages();
+                llenarTabla(this.TableAlmacenamiento, logicDao.getListStorages());
+                return true;
+            case 5://Pagina Almacenamiento
+                logicDao.setListPowers(listSeleccion.getConsumoActual());
+                llenarTabla(this.TableAlmacenamiento, logicDao.getListPowers());
+                return true;
+            case 6://Pagina Fuente
+                m = (MotherBoard) listSeleccion.getSeleccionExpecifica("MotherBoard");
+                Fuente power = (Fuente) listSeleccion.getSeleccionExpecifica("Fuente");
+                GPU gpu = (GPU) listSeleccion.getSeleccionExpecifica("GPU");
+                Cooler c = (Cooler) listSeleccion.getSeleccionExpecifica("Cooler");
+                logicDao.setListTowers(m.getFactor(), power.getFactor(), gpu.getLength(), c.getType(), c.getHighCooler(), c.getCoolersFans(), c.getSizeCoolerFans());
+                llenarTabla(this.TableGabinete, logicDao.getListTowers());
+                return true;
         }
-        if (indexSelected == (jTabbedPane1.getTabCount() - 1)) {
-            nextBtn.setEnabled(false);
-            updateListBtn.setEnabled(false);
+        return false;
+    }
+
+    private <E extends Articulo> void setInfoBasic(int pageActual, E elemento) {
+        if (!panelBasicInfo.isEnabled()) {
+            setPanelEnabled(panelBasicInfo, true);
+        }
+        switch (pageActual) {
+            case 0://Procesador
+                Procesador e = (Procesador) elemento;
+                setCamps(e.getImagen(), e.getTitle(), e.getMarca(), e.getSocket(), Double.toString(e.getFrequencyTurbo()), "Socket:", "Frecuencia Turbo:");
+                break;
+            case 1:
+                MotherBoard m = (MotherBoard) elemento;
+                setCamps(m.getImagen(), m.getTitle(), m.getMarca(), m.getChipset(), m.getFactor(), "Chipset:", "Factor:");
+                break;
+            case 2:
+                //Cooler
+                Cooler c = (Cooler) elemento;
+                setCamps(c.getImagen(), c.getTitle(), c.getMarca(), c.getType(), Integer.toString(c.getTDP()), "Tipo:", "TDP:");
+                break;
+            case 3:
+                //Ram
+                Ram r = (Ram) elemento;
+                setCamps(r.getImagen(), r.getTitle(), r.getMarca(), Integer.toString(r.getCapacity()), Integer.toString(r.getFrequencyRam()), "Cantidad de Memoria:", "Frecuancia:");
+                break;
+            case 4:
+                //GPU
+                GPU gpu = (GPU) elemento;
+                setCamps(gpu.getImagen(), gpu.getTitle(), gpu.getMarca(), gpu.getTypeMemory(), Integer.toString(gpu.getMemoryVRam()), "Tipo de Memoria:", "Memoria VRam:");
+                break;
+            case 5:
+                //Almacenamiento
+                Almacenamiento alm = (Almacenamiento) elemento;
+                setCamps(alm.getImagen(), alm.getTitle(), alm.getMarca(), alm.getType(), alm.getFactor(), "Tipo:", "Factor:");
+                break;
+            case 6:
+                //Fuente
+                Fuente f = (Fuente) elemento;
+                setCamps(f.getImagen(), f.getTitle(), f.getMarca(), Integer.toString(f.getRealWatts()), f.getFactor(), "Tipo:", "Factor:");
+                break;
+            case 7:
+                //Gabinete
+                Gabinete ga = (Gabinete) elemento;
+                setCamps(ga.getImagen(), ga.getTitle(), ga.getMarca(), ga.getFactorMother(), ga.getPowerFactor(), "Factor de Mother:", "Factor de Fuente:");
+                break;
+            default:
+                setPanelEnabled(panelBasicInfo, false);
+                break;
         }
     }
 
-    private void goBackPage() {
-        if (indexSelected <= (jTabbedPane1.getTabCount() - 1) & indexSelected > 0) {
-            indexSelected--;
-            jTabbedPane1.setSelectedIndex(indexSelected);
-        }
-        if (indexSelected == 0) {
-            backBtn.setEnabled(false);
-        }
-        if (indexSelected != (jTabbedPane1.getTabCount() - 1)) {
-            nextBtn.setEnabled(true);
-            updateListBtn.setEnabled(true);
-        }
+    private void setCamps(String pathImg, String x1, String x2, String x3, String x4, String x5, String x6) {
+        imgLabel.setIcon(generateImageIcon(pathImg, imgLabel));
+        this.txtInfo1.setText(x1);
+        this.txtInfo2.setText(x2);
+        this.txtInfo3.setText(x3);
+        this.txtInfo4.setText(x4);
+        this.labelInfo3.setText(x5);
+        this.labelInfo4.setText(x6);
     }
 
-    private <T extends Articulo> void llenarTabla(javax.swing.JTable table, List<T> lista) {
-        int e=0;
-        clearTable(table);
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
-        for (T articulo : lista) {
-            model.addRow(articulo.getRow());
-            e++;
-        }
-        JOptionPane.showMessageDialog(null, "Cantidad de elementos encontrados: "+e,"Lista Cargada.",JOptionPane.INFORMATION_MESSAGE);
-        table.setModel(model);
+    protected ListaSeleccion getListSeleccion() {
+        return listSeleccion;
+    }
+
+    protected void setPageActual(int page) {
+        pageSelected = page;
+        jTabbedPane1.setSelectedIndex(page);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -712,12 +861,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     private javax.swing.JButton addArtSelectedBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel imgLabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -728,12 +872,17 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField marcaTxt;
+    private javax.swing.JLabel labelInfo1;
+    private javax.swing.JLabel labelInfo2;
+    private javax.swing.JLabel labelInfo3;
+    private javax.swing.JLabel labelInfo4;
     private javax.swing.JButton moreInfoBtn;
     private javax.swing.JButton nextBtn;
-    private javax.swing.JTextField titleArtTxt;
+    private javax.swing.JPanel panelBasicInfo;
+    private javax.swing.JTextField txtInfo1;
+    private javax.swing.JTextField txtInfo2;
+    private javax.swing.JTextField txtInfo3;
+    private javax.swing.JTextField txtInfo4;
     private javax.swing.JButton updateListBtn;
-    private javax.swing.JTextField varArt1Txt;
-    private javax.swing.JTextField varArt2Txt;
     // End of variables declaration//GEN-END:variables
 }

@@ -39,7 +39,7 @@ public class LogicPacksAL<T extends Articulo> {
     public LogicPacksAL() {
     }
 
-    public static PaqueteRecepcionClient sendPackagePet(int TYPE_PAQ, int TYPE_ART, Object PARAM) {
+    private static PaqueteRecepcionClient sendPackagePet(int TYPE_PAQ, int TYPE_ART, Object PARAM) {
         try {
             Socket s = new Socket("localhost", 8765);
             ObjectOutputStream o = new ObjectOutputStream(s.getOutputStream());
