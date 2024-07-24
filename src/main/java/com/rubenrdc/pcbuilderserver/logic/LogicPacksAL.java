@@ -44,7 +44,7 @@ public class LogicPacksAL<T extends Articulo> {
             Socket s = new Socket("localhost", 8765);
             ObjectOutputStream o = new ObjectOutputStream(s.getOutputStream());
             o.writeObject(new PaquetePeticionClient(TYPE_PAQ, TYPE_ART, PARAM));
-            System.out.println(PARAM);
+            //System.out.println(PARAM);
             ObjectInputStream i = new ObjectInputStream(s.getInputStream());
             PaqueteRecepcionClient PackageRec = (PaqueteRecepcionClient) i.readObject();
 
@@ -84,7 +84,7 @@ public class LogicPacksAL<T extends Articulo> {
     }
 
     public void setListStorages() {
-        this.listStorages = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_GPU, null).getListArts();
+        this.listStorages = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_STORAGE, null).getListArts();
     }
 
     public void setListPowers(int currentTotalW) {
@@ -98,7 +98,7 @@ public class LogicPacksAL<T extends Articulo> {
         param.put("highCooler", highCooler);
         param.put("lenghtCoolerFans", (sizeCoolerFans * CoolersFans));
         param.put("lengthGPU", lengthGPU);
-        this.listTowers = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_POWER, param).getListArts();
+        this.listTowers = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_TOWER, param).getListArts();
         param.clear();
     }
 
