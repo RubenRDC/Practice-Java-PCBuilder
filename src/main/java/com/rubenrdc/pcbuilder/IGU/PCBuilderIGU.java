@@ -279,6 +279,11 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         });
         TableMother.setRowHeight(25);
         TableMother.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TableMother.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableMotherMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TableMother);
 
         javax.swing.GroupLayout PanelMotherLayout = new javax.swing.GroupLayout(PanelMother);
@@ -317,6 +322,11 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         });
         TableCooler.setRowHeight(25);
         TableCooler.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TableCooler.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableCoolerMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(TableCooler);
 
         javax.swing.GroupLayout PanelCoolerLayout = new javax.swing.GroupLayout(PanelCooler);
@@ -355,6 +365,11 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         });
         TableRam.setRowHeight(25);
         TableRam.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TableRam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableRamMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(TableRam);
 
         javax.swing.GroupLayout PanelRamLayout = new javax.swing.GroupLayout(PanelRam);
@@ -393,6 +408,11 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         });
         TableGPU.setRowHeight(25);
         TableGPU.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TableGPU.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableGPUMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(TableGPU);
 
         javax.swing.GroupLayout PanelGPULayout = new javax.swing.GroupLayout(PanelGPU);
@@ -431,6 +451,11 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         });
         TableAlmacenamiento.setRowHeight(25);
         TableAlmacenamiento.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TableAlmacenamiento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableAlmacenamientoMouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(TableAlmacenamiento);
 
         javax.swing.GroupLayout PanelAlmacenamientoLayout = new javax.swing.GroupLayout(PanelAlmacenamiento);
@@ -469,6 +494,11 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         });
         TableFuente.setRowHeight(25);
         TableFuente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TableFuente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableFuenteMouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(TableFuente);
 
         javax.swing.GroupLayout PanelFuenteLayout = new javax.swing.GroupLayout(PanelFuente);
@@ -507,6 +537,11 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         });
         TableGabinete.setRowHeight(25);
         TableGabinete.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        TableGabinete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableGabineteMouseClicked(evt);
+            }
+        });
         jScrollPane8.setViewportView(TableGabinete);
 
         javax.swing.GroupLayout PanelGabineteLayout = new javax.swing.GroupLayout(PanelGabinete);
@@ -648,13 +683,74 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        logicDao.setListCPUs(selectedType);
+        llenarTabla(TableProcesador, logicDao.getListCPUs());
+    }//GEN-LAST:event_formWindowOpened
+
+    private void TableProcesadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProcesadorMouseClicked
+        int selectedRow = TableProcesador.getSelectedRow();
+        if (selectedRow != -1) {
+            setInfoBasic(pageSelected, (Procesador) logicDao.getListCPUs().get(selectedRow));
+        }
+    }//GEN-LAST:event_TableProcesadorMouseClicked
+
+    private void TableMotherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableMotherMouseClicked
+        int selectedRow = TableMother.getSelectedRow();
+        if (selectedRow != -1) {
+            setInfoBasic(pageSelected, (MotherBoard) logicDao.getListMothers().get(selectedRow));
+        }
+    }//GEN-LAST:event_TableMotherMouseClicked
+
+    private void TableCoolerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCoolerMouseClicked
+        int selectedRow = TableCooler.getSelectedRow();
+        if (selectedRow != -1) {
+            setInfoBasic(pageSelected, (Cooler) logicDao.getListCoolers().get(selectedRow));
+        }
+    }//GEN-LAST:event_TableCoolerMouseClicked
+
+    private void TableRamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableRamMouseClicked
+        int selectedRow = TableRam.getSelectedRow();
+        if (selectedRow != -1) {
+            setInfoBasic(pageSelected, (Ram) logicDao.getListRams().get(selectedRow));
+        }
+    }//GEN-LAST:event_TableRamMouseClicked
+
+    private void TableGPUMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableGPUMouseClicked
+        int selectedRow = TableGPU.getSelectedRow();
+        if (selectedRow != -1) {
+            setInfoBasic(pageSelected, (GPU) logicDao.getListGPUs().get(selectedRow));
+        }
+    }//GEN-LAST:event_TableGPUMouseClicked
+
+    private void TableAlmacenamientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableAlmacenamientoMouseClicked
+        int selectedRow = TableAlmacenamiento.getSelectedRow();
+        if (selectedRow != -1) {
+            setInfoBasic(pageSelected, (Almacenamiento) logicDao.getListStorages().get(selectedRow));
+        }
+    }//GEN-LAST:event_TableAlmacenamientoMouseClicked
+
+    private void TableFuenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableFuenteMouseClicked
+        int selectedRow = TableFuente.getSelectedRow();
+        if (selectedRow != -1) {
+            setInfoBasic(pageSelected, (Fuente) logicDao.getListPowers().get(selectedRow));
+        }
+    }//GEN-LAST:event_TableFuenteMouseClicked
+
+    private void TableGabineteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableGabineteMouseClicked
+        int selectedRow = TableGabinete.getSelectedRow();
+        if (selectedRow != -1) {
+            setInfoBasic(pageSelected, (Gabinete) logicDao.getListTowers().get(selectedRow));
+        }
+    }//GEN-LAST:event_TableGabineteMouseClicked
+
     private void goNextPage() {
         if (pageSelected < (jTabbedPane1.getTabCount() - 1)) {
             if (getNextPageInfo(pageSelected)) {
                 pageSelected++;
                 jTabbedPane1.setSelectedIndex(pageSelected);
             } else {
-                JOptionPane.showMessageDialog(this, "Seleccione un articulo en la lista actual para\nencontrar los componentes compatibles q lo prosiguen.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Seleccione un articulo en la lista actual para encontrar\nlos componentes compatibles q lo prosiguen.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         if (pageSelected > 0) {
@@ -687,7 +783,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         if (nextBtn.isEnabled()) {
             goNextPage();
         }
-
     }//GEN-LAST:event_nextBtnMouseClicked
 
     private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
@@ -702,29 +797,59 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         }
     }//GEN-LAST:event_ViewSelectedListBtnMouseClicked
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        logicDao.setListCPUs(selectedType);
-        llenarTabla(TableProcesador, logicDao.getListCPUs());
-    }//GEN-LAST:event_formWindowOpened
-
-    private void TableProcesadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProcesadorMouseClicked
-        int selectedRow = TableProcesador.getSelectedRow();
-        if (selectedRow != -1) {
-            setInfoBasic(pageSelected, (Procesador) logicDao.getListCPUs().get(selectedRow));
-        }
-    }//GEN-LAST:event_TableProcesadorMouseClicked
-
     private void addArtSelectedBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addArtSelectedBtnMouseClicked
-        
-        //Aqui Falta!!!!!!!!!
-        listSeleccion.add(logicDao.getListCPUs().get(TableProcesador.getSelectedRow()));
-        goNextPage();
+        switch (pageSelected) {
+            case 0://Procesador
+                listSeleccion.add(logicDao.getListCPUs().get(TableProcesador.getSelectedRow()));
+                goNextPage();
+                break;
+            case 1:
+                listSeleccion.add(logicDao.getListMothers().get(TableMother.getSelectedRow()));
+                goNextPage();
+                break;
+            case 2:
+                listSeleccion.add(logicDao.getListCoolers().get(TableCooler.getSelectedRow()));
+                goNextPage();
+                //Cooler
+                break;
+            case 3:
+                int setCantAdd = setCantAdd(listSeleccion.getMotherSeleccionada().getMemorySlots());
+                if (setCantAdd > 0) {
+                    listSeleccion.add((Ram) logicDao.getListRams().get(TableRam.getSelectedRow()), setCantAdd);
+                    goNextPage();
+                }
+                //Ram
+                break;
+
+            case 4:
+                listSeleccion.add(logicDao.getListGPUs().get(TableGPU.getSelectedRow()));
+                goNextPage();
+                //GPU
+                break;
+            case 5:
+                listSeleccion.add(logicDao.getListStorages().get(TableAlmacenamiento.getSelectedRow()));
+                goNextPage();
+                //Almacenamiento
+                break;
+            case 6:
+                listSeleccion.add(logicDao.getListPowers().get(TableFuente.getSelectedRow()));
+                goNextPage();
+                //Fuente
+                break;
+            case 7:
+                listSeleccion.add(logicDao.getListTowers().get(TableGabinete.getSelectedRow()));
+                goNextPage();
+                //Gabinete
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_addArtSelectedBtnMouseClicked
 
     private boolean getNextPageInfo(int pageActual) {
         switch (pageActual) {
             case 0://Se encuentra en la pagina de Procesador
-                Procesador p = (Procesador) listSeleccion.getSeleccionExpecifica("Procesador");
+                Procesador p = listSeleccion.getProcesadorSeleccionada();
                 if (p != null) {
                     logicDao.setListMothers(p.getSocket());
                     llenarTabla(this.TableMother, logicDao.getListMothers());
@@ -732,17 +857,17 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 }
                 break;
             case 1://Pagina Mother
-                p = (Procesador) listSeleccion.getSeleccionExpecifica("Procesador");
+                p = listSeleccion.getProcesadorSeleccionada();
                 if (p != null) {
                     logicDao.setListCoolers(p.getSocket(), p.getTDP());
                     llenarTabla(this.TableCooler, logicDao.getListCoolers());
                     return true;
                 }
             case 2://Pagina Cooler
-                MotherBoard m = (MotherBoard) listSeleccion.getSeleccionExpecifica("MotherBoard");
+                MotherBoard m = listSeleccion.getMotherSeleccionada();
                 if (m != null) {
                     logicDao.setListRams(m.getMemoryType());
-                    llenarTabla(this.TableCooler, logicDao.getListRams());
+                    llenarTabla(this.TableRam, logicDao.getListRams());
                     return true;
                 }
                 break;
@@ -756,13 +881,13 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 return true;
             case 5://Pagina Almacenamiento
                 logicDao.setListPowers(listSeleccion.getConsumoActual());
-                llenarTabla(this.TableAlmacenamiento, logicDao.getListPowers());
+                llenarTabla(this.TableFuente, logicDao.getListPowers());
                 return true;
             case 6://Pagina Fuente
-                m = (MotherBoard) listSeleccion.getSeleccionExpecifica("MotherBoard");
-                Fuente power = (Fuente) listSeleccion.getSeleccionExpecifica("Fuente");
-                GPU gpu = (GPU) listSeleccion.getSeleccionExpecifica("GPU");
-                Cooler c = (Cooler) listSeleccion.getSeleccionExpecifica("Cooler");
+                m = listSeleccion.getMotherSeleccionada();
+                Fuente power = listSeleccion.getFuenteSeleccionada();
+                GPU gpu = listSeleccion.getGpuSeleccionada();
+                Cooler c = listSeleccion.getCoolerSeleccionada();
                 logicDao.setListTowers(m.getFactor(), power.getFactor(), gpu.getLength(), c.getType(), c.getHighCooler(), c.getCoolersFans(), c.getSizeCoolerFans());
                 llenarTabla(this.TableGabinete, logicDao.getListTowers());
                 return true;
@@ -836,6 +961,32 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     protected void setPageActual(int page) {
         pageSelected = page;
         jTabbedPane1.setSelectedIndex(page);
+    }
+
+    private int setCantAdd(int maxPermitido) {
+        int stringToCantNumber;
+        String showInputDialog;
+        do {
+            showInputDialog = JOptionPane.showInputDialog(null, "Ingrese la cantidad a agregar (Cantidad soportada: 1/" + maxPermitido + ")", "Cantidad a agregar.", JOptionPane.QUESTION_MESSAGE);
+            stringToCantNumber = stringToCantNumber(showInputDialog);
+            if (stringToCantNumber <= maxPermitido & stringToCantNumber >= 1) {
+                return stringToCantNumber;
+            }
+        } while (stringToCantNumber == -1 & showInputDialog != null);
+
+        return -1;
+    }
+
+    private int stringToCantNumber(String x) {
+        String permitido = "123456789";
+        if (x != null) {
+            if (!(x.isEmpty() || x.isBlank())) {
+                if (permitido.contains(x)) {
+                    return Integer.parseInt(x);
+                }
+            }
+        }
+        return -1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
