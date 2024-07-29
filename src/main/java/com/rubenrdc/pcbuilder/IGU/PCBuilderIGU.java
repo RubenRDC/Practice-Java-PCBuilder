@@ -23,7 +23,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     public PCBuilderIGU(int Type) {
         initComponents();
         this.selectedType = Type;
-        //jTabbedPane1.setEnabledAt(0, false);
     }
 
     @SuppressWarnings("unchecked")
@@ -77,7 +76,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         updateListBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(null);
         setMinimumSize(null);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -140,6 +138,11 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         moreInfoBtn.setFocusable(false);
         moreInfoBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
         moreInfoBtn.setPreferredSize(new java.awt.Dimension(128, 32));
+        moreInfoBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                moreInfoBtnMouseClicked(evt);
+            }
+        });
 
         ViewSelectedListBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ViewSelectedListBtn.setIcon(new ImageIcon("src/main/java/com/rubenrdc/pcbuilder/IGU/miselaneos/Selections25x25.png"));
@@ -213,9 +216,9 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         jTabbedPane1.setFocusable(false);
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(744, 564));
-        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabbedPane1MouseClicked(evt);
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
             }
         });
 
@@ -224,7 +227,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         TableProcesador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableProcesador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                null
             },
             new String [] {
                 "Titulo","Marca","N. Nucleos","N. Hilos","Frec. Turbo"
@@ -267,7 +269,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         TableMother.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableMother.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                null
             },
             new String [] {
                 "Titulo","Marca","Chipset","Factor"
@@ -310,7 +311,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         TableCooler.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableCooler.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                null
             },
             new String [] {
                 "Titulo","Marca","Tipo","TDP"
@@ -353,7 +353,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         TableRam.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableRam.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                null
             },
             new String [] {
                 "Titulo","Marca","Capacidad","Frecuencia"
@@ -396,7 +395,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         TableGPU.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableGPU.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                null
             },
             new String [] {
                 "Titulo","Marca","Tipo de Memoria","MemoriaVram"
@@ -439,7 +437,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         TableAlmacenamiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableAlmacenamiento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                null
             },
             new String [] {
                 "Titulo","Marca","Tipo","Factor"
@@ -482,7 +479,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         TableFuente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableFuente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                null
             },
             new String [] {
                 "Titulo","Marca","Watts Reales","Factor"
@@ -525,7 +521,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         TableGabinete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableGabinete.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                null
             },
             new String [] {
                 "Titulo","Marca","Factor Mother","Factor Fuente"
@@ -568,119 +563,124 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
         TableEnd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableEnd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                null
             },
             new String [] {
-
+                "Titulo","Cantidad"
             }
         ){
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return false;
             }
-        });
-        TableEnd.setRowHeight(25);
-        jScrollPane9.setViewportView(TableEnd);
+        }
+    );
+    TableEnd.setRowHeight(25);
+    jScrollPane9.setViewportView(TableEnd);
 
-        javax.swing.GroupLayout PanelEndLayout = new javax.swing.GroupLayout(PanelEnd);
-        PanelEnd.setLayout(PanelEndLayout);
-        PanelEndLayout.setHorizontalGroup(
-            PanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEndLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        PanelEndLayout.setVerticalGroup(
-            PanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEndLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+    javax.swing.GroupLayout PanelEndLayout = new javax.swing.GroupLayout(PanelEnd);
+    PanelEnd.setLayout(PanelEndLayout);
+    PanelEndLayout.setHorizontalGroup(
+        PanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(PanelEndLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+            .addContainerGap())
+    );
+    PanelEndLayout.setVerticalGroup(
+        PanelEndLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(PanelEndLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+            .addContainerGap())
+    );
 
-        jTabbedPane1.addTab("Finalizar", PanelEnd);
+    jTabbedPane1.addTab("Finalizar", PanelEnd);
 
-        nextBtn.setText("Paso Siguiente ->");
-        nextBtn.setFocusable(false);
-        nextBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        nextBtn.setPreferredSize(new java.awt.Dimension(134, 32));
-        nextBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nextBtnMouseClicked(evt);
-            }
-        });
+    nextBtn.setText("Paso Siguiente ->");
+    nextBtn.setFocusable(false);
+    nextBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
+    nextBtn.setPreferredSize(new java.awt.Dimension(134, 32));
+    nextBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            nextBtnMouseClicked(evt);
+        }
+    });
 
-        backBtn.setText("<- Paso Anterior");
-        backBtn.setEnabled(false);
-        backBtn.setFocusable(false);
-        backBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        backBtn.setPreferredSize(new java.awt.Dimension(134, 32));
-        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backBtnMouseClicked(evt);
-            }
-        });
+    backBtn.setText("<- Paso Anterior");
+    backBtn.setEnabled(false);
+    backBtn.setFocusable(false);
+    backBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
+    backBtn.setPreferredSize(new java.awt.Dimension(134, 32));
+    backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            backBtnMouseClicked(evt);
+        }
+    });
 
-        updateListBtn.setText("Actualizar Lista");
-        updateListBtn.setFocusable(false);
-        updateListBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        updateListBtn.setPreferredSize(new java.awt.Dimension(128, 32));
+    updateListBtn.setText("Actualizar Lista");
+    updateListBtn.setFocusable(false);
+    updateListBtn.setMargin(new java.awt.Insets(1, 1, 1, 1));
+    updateListBtn.setPreferredSize(new java.awt.Dimension(128, 32));
+    updateListBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            updateListBtnMouseClicked(evt);
+        }
+    });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                        .addComponent(updateListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                        .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(8, 8, 8)
+    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    jPanel1.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(8, 8, 8)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                    .addComponent(updateListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                    .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addGap(8, 8, 8)
+            .addComponent(panelBasicInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(8, 8, 8))
+    );
+    jPanel1Layout.setVerticalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(8, 8, 8)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panelBasicInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(8, 8, 8))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelBasicInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(updateListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(8, 8, 8))
-        );
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(updateListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGap(8, 8, 8))
+    );
 
-        //jTabbedPane1.setEnabledAt(0, false);
-        jTabbedPane1.setEnabledAt(1, false);
-        jTabbedPane1.setEnabledAt(2, false);
-        jTabbedPane1.setEnabledAt(3, false);
-        jTabbedPane1.setEnabledAt(4, false);
-        jTabbedPane1.setEnabledAt(5, false);
-        jTabbedPane1.setEnabledAt(6, false);
-        jTabbedPane1.setEnabledAt(7, false);
+    //jTabbedPane1.setEnabledAt(0, false);
+    jTabbedPane1.setEnabledAt(1, false);
+    jTabbedPane1.setEnabledAt(2, false);
+    jTabbedPane1.setEnabledAt(3, false);
+    jTabbedPane1.setEnabledAt(4, false);
+    jTabbedPane1.setEnabledAt(5, false);
+    jTabbedPane1.setEnabledAt(6, false);
+    jTabbedPane1.setEnabledAt(7, false);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -753,12 +753,6 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 JOptionPane.showMessageDialog(this, "Seleccione un articulo en la lista actual para encontrar\nlos componentes compatibles q lo prosiguen.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        if (pageSelected > 0) {
-            backBtn.setEnabled(true);
-        } else if (pageSelected == (jTabbedPane1.getTabCount() - 1)) {
-            nextBtn.setEnabled(false);
-            updateListBtn.setEnabled(false);
-        }
     }
 
     private void goBackPage() {
@@ -766,18 +760,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             pageSelected--;
             jTabbedPane1.setSelectedIndex(pageSelected);
         }
-        if (pageSelected == 0) {
-            backBtn.setEnabled(false);
-        }
-        if (pageSelected != (jTabbedPane1.getTabCount() - 1)) {
-            nextBtn.setEnabled(true);
-            updateListBtn.setEnabled(true);
-        }
     }
-
-    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-
-    }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void nextBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextBtnMouseClicked
         if (nextBtn.isEnabled()) {
@@ -798,149 +781,206 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     }//GEN-LAST:event_ViewSelectedListBtnMouseClicked
 
     private void addArtSelectedBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addArtSelectedBtnMouseClicked
-        switch (pageSelected) {
-            case 0://Procesador
-                listSeleccion.add(logicDao.getListCPUs().get(TableProcesador.getSelectedRow()));
-                goNextPage();
-                break;
-            case 1:
-                listSeleccion.add(logicDao.getListMothers().get(TableMother.getSelectedRow()));
-                goNextPage();
-                break;
-            case 2:
-                listSeleccion.add(logicDao.getListCoolers().get(TableCooler.getSelectedRow()));
-                goNextPage();
-                //Cooler
-                break;
-            case 3:
-                int setCantAdd = setCantAdd(listSeleccion.getMotherSeleccionada().getMemorySlots());
-                if (setCantAdd > 0) {
-                    listSeleccion.add((Ram) logicDao.getListRams().get(TableRam.getSelectedRow()), setCantAdd);
-                    goNextPage();
+        if (addArtSelectedBtn.isEnabled()) {
+            switch (pageSelected) {
+                case 0 -> {
+                    //Procesador
+                    if (TableProcesador.getSelectedRow() != -1) {
+                        listSeleccion.add(logicDao.getListCPUs().get(TableProcesador.getSelectedRow()));
+                        goNextPage();
+                    }
                 }
-                //Ram
-                break;
-
-            case 4:
-                listSeleccion.add(logicDao.getListGPUs().get(TableGPU.getSelectedRow()));
-                goNextPage();
-                //GPU
-                break;
-            case 5:
-                listSeleccion.add(logicDao.getListStorages().get(TableAlmacenamiento.getSelectedRow()));
-                goNextPage();
-                //Almacenamiento
-                break;
-            case 6:
-                listSeleccion.add(logicDao.getListPowers().get(TableFuente.getSelectedRow()));
-                goNextPage();
-                //Fuente
-                break;
-            case 7:
-                listSeleccion.add(logicDao.getListTowers().get(TableGabinete.getSelectedRow()));
-                goNextPage();
-                //Gabinete
-                break;
-            default:
-                break;
+                case 1 -> {
+                    if (TableMother.getSelectedRow() != -1) {
+                        listSeleccion.add(logicDao.getListMothers().get(TableMother.getSelectedRow()));
+                        goNextPage();
+                    }
+                }
+                case 2 -> {
+                    if (TableCooler.getSelectedRow() != -1) {
+                        listSeleccion.add(logicDao.getListCoolers().get(TableCooler.getSelectedRow()));
+                        goNextPage();
+                        //Cooler
+                    }
+                }
+                case 3 -> {//Ram
+                    if (TableRam.getSelectedRow() != -1) {
+                        int setCantAdd = setCantAdd(listSeleccion.getMotherSeleccionada().getMemorySlots());
+                        if (setCantAdd > 0) {
+                            listSeleccion.add((Ram) logicDao.getListRams().get(TableRam.getSelectedRow()), setCantAdd);
+                            goNextPage();
+                        }
+                    }
+                }
+                case 4 -> {//GPU
+                    if (TableGPU.getSelectedRow() != -1) {
+                        listSeleccion.add(logicDao.getListGPUs().get(TableGPU.getSelectedRow()));
+                        goNextPage();
+                    }
+                }
+                case 5 -> {//Almacenamiento
+                    if (TableAlmacenamiento.getSelectedRow() != -1) {
+                        listSeleccion.add(logicDao.getListStorages().get(TableAlmacenamiento.getSelectedRow()));
+                        goNextPage();
+                    }
+                }
+                case 6 -> {//Fuente
+                    if (TableFuente.getSelectedRow() != -1) {
+                        listSeleccion.add(logicDao.getListPowers().get(TableFuente.getSelectedRow()));
+                        goNextPage();
+                    }
+                }
+                case 7 -> {//Gabinete
+                    if (TableGabinete.getSelectedRow() != -1) {
+                        listSeleccion.add(logicDao.getListTowers().get(TableGabinete.getSelectedRow()));
+                        goNextPage();
+                    }
+                }
+                default -> {
+                }
+            }
+            ViewSelectedListBtn.setText(Integer.toString(listSeleccion.size()));
         }
     }//GEN-LAST:event_addArtSelectedBtnMouseClicked
 
+    private void moreInfoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moreInfoBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_moreInfoBtnMouseClicked
+
+    private void updateListBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateListBtnMouseClicked
+        getInfoPage(pageSelected);
+    }//GEN-LAST:event_updateListBtnMouseClicked
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        if (pageSelected!=jTabbedPane1.getSelectedIndex()) {
+            pageSelected=jTabbedPane1.getSelectedIndex();
+        }
+        botonsVerificPage();
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
     private boolean getNextPageInfo(int pageActual) {
+        return getInfoPage((pageActual + 1));
+    }
+
+    private boolean getInfoPage(int pageActual) {
         switch (pageActual) {
-            case 0://Se encuentra en la pagina de Procesador
+            case 0 -> {
+                //Solicita Info Pagina Procesador
+                logicDao.setListCPUs(selectedType);
+                llenarTabla(this.TableProcesador, logicDao.getListCPUs());
+                return true;
+            }
+            case 1 -> {
+                //Solicita Info Pagina Mother
                 Procesador p = listSeleccion.getProcesadorSeleccionada();
                 if (p != null) {
                     logicDao.setListMothers(p.getSocket());
                     llenarTabla(this.TableMother, logicDao.getListMothers());
                     return true;
                 }
-                break;
-            case 1://Pagina Mother
-                p = listSeleccion.getProcesadorSeleccionada();
+            }
+            case 2 -> {
+                //Solicita Info Pagina Cooler
+                Procesador p = listSeleccion.getProcesadorSeleccionada();
                 if (p != null) {
                     logicDao.setListCoolers(p.getSocket(), p.getTDP());
                     llenarTabla(this.TableCooler, logicDao.getListCoolers());
                     return true;
                 }
-            case 2://Pagina Cooler
+            }
+            case 3 -> {
+                //Solicita Info Pagina Ram
                 MotherBoard m = listSeleccion.getMotherSeleccionada();
                 if (m != null) {
                     logicDao.setListRams(m.getMemoryType());
                     llenarTabla(this.TableRam, logicDao.getListRams());
                     return true;
                 }
-                break;
-            case 3://Pagina Ram
+            }
+            case 4 -> {
+                //Solicita Info Pagina GPU
                 logicDao.setListGPUs();
                 llenarTabla(this.TableGPU, logicDao.getListGPUs());
                 return true;
-            case 4://Pagina GPU
+            }
+            case 5 -> {
+                //Solicita Info Pagina Almacenamiento
                 logicDao.setListStorages();
                 llenarTabla(this.TableAlmacenamiento, logicDao.getListStorages());
                 return true;
-            case 5://Pagina Almacenamiento
+            }
+            case 6 -> {
+                //Solicita Info Pagina Fuente
                 logicDao.setListPowers(listSeleccion.getConsumoActual());
                 llenarTabla(this.TableFuente, logicDao.getListPowers());
                 return true;
-            case 6://Pagina Fuente
-                m = listSeleccion.getMotherSeleccionada();
+            }
+            case 7 -> {
+                //Solicita Info Pagina Gabinete
+                MotherBoard m = listSeleccion.getMotherSeleccionada();
                 Fuente power = listSeleccion.getFuenteSeleccionada();
                 GPU gpu = listSeleccion.getGpuSeleccionada();
                 Cooler c = listSeleccion.getCoolerSeleccionada();
-                logicDao.setListTowers(m.getFactor(), power.getFactor(), gpu.getLength(), c.getType(), c.getHighCooler(), c.getCoolersFans(), c.getSizeCoolerFans());
-                llenarTabla(this.TableGabinete, logicDao.getListTowers());
+                if (m != null & power != null & c != null) {
+                    int GPULENG = 0;
+                    if (gpu != null) {
+                        GPULENG = gpu.getLength();
+                    }
+                    logicDao.setListTowers(m.getFactor(), power.getFactor(), GPULENG, c.getType(), c.getHighCooler(), c.getCoolersFans(), c.getSizeCoolerFans());
+                    llenarTabla(this.TableGabinete, logicDao.getListTowers());
+                    return true;
+                }
+                break;
+            }
+            case 8 -> {
+                llenarTablaO(this.TableEnd, listSeleccion.getListTitleAndCant());
                 return true;
+            }
         }
         return false;
     }
 
     private <E extends Articulo> void setInfoBasic(int pageActual, E elemento) {
-        if (!panelBasicInfo.isEnabled()) {
-            setPanelEnabled(panelBasicInfo, true);
-        }
         switch (pageActual) {
-            case 0://Procesador
+            case 0 -> {
+                //Procesador
                 Procesador e = (Procesador) elemento;
                 setCamps(e.getImagen(), e.getTitle(), e.getMarca(), e.getSocket(), Double.toString(e.getFrequencyTurbo()), "Socket:", "Frecuencia Turbo:");
-                break;
-            case 1:
+            }
+            case 1 -> {
                 MotherBoard m = (MotherBoard) elemento;
                 setCamps(m.getImagen(), m.getTitle(), m.getMarca(), m.getChipset(), m.getFactor(), "Chipset:", "Factor:");
-                break;
-            case 2:
+            }
+            case 2 -> {
                 //Cooler
                 Cooler c = (Cooler) elemento;
                 setCamps(c.getImagen(), c.getTitle(), c.getMarca(), c.getType(), Integer.toString(c.getTDP()), "Tipo:", "TDP:");
-                break;
-            case 3:
+            }
+            case 3 -> {
                 //Ram
                 Ram r = (Ram) elemento;
                 setCamps(r.getImagen(), r.getTitle(), r.getMarca(), Integer.toString(r.getCapacity()), Integer.toString(r.getFrequencyRam()), "Cantidad de Memoria:", "Frecuancia:");
-                break;
-            case 4:
+            }
+            case 4 -> {
                 //GPU
                 GPU gpu = (GPU) elemento;
                 setCamps(gpu.getImagen(), gpu.getTitle(), gpu.getMarca(), gpu.getTypeMemory(), Integer.toString(gpu.getMemoryVRam()), "Tipo de Memoria:", "Memoria VRam:");
-                break;
-            case 5:
+            }
+            case 5 -> {
                 //Almacenamiento
                 Almacenamiento alm = (Almacenamiento) elemento;
                 setCamps(alm.getImagen(), alm.getTitle(), alm.getMarca(), alm.getType(), alm.getFactor(), "Tipo:", "Factor:");
-                break;
-            case 6:
+            }
+            case 6 -> {
                 //Fuente
                 Fuente f = (Fuente) elemento;
                 setCamps(f.getImagen(), f.getTitle(), f.getMarca(), Integer.toString(f.getRealWatts()), f.getFactor(), "Tipo:", "Factor:");
-                break;
-            case 7:
+            }
+            case 7 -> {
                 //Gabinete
                 Gabinete ga = (Gabinete) elemento;
                 setCamps(ga.getImagen(), ga.getTitle(), ga.getMarca(), ga.getFactorMother(), ga.getPowerFactor(), "Factor de Mother:", "Factor de Fuente:");
-                break;
-            default:
-                setPanelEnabled(panelBasicInfo, false);
-                break;
+            }
         }
     }
 
@@ -961,6 +1001,10 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     protected void setPageActual(int page) {
         pageSelected = page;
         jTabbedPane1.setSelectedIndex(page);
+    }
+
+    protected void setViewSelectedListBtnText(int sizeList) {
+        ViewSelectedListBtn.setText(Integer.toString(sizeList));
     }
 
     private int setCantAdd(int maxPermitido) {
@@ -987,6 +1031,26 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
             }
         }
         return -1;
+    }
+
+    private void botonsVerificPage() {
+        if (pageSelected >= 0) {
+            if (pageSelected == 0) {
+                backBtn.setEnabled(false);
+            } else {
+                backBtn.setEnabled(true);
+            }
+            if (pageSelected == 8) {//jTabbedPane1.getTabCount()
+                
+                nextBtn.setEnabled(false);
+                updateListBtn.setEnabled(false);
+                setPanelEnabled(panelBasicInfo, false);
+            } else if (pageSelected != 8) {//jTabbedPane1.getTabCount() retorna 1 al iniciar por alguna razon...
+                nextBtn.setEnabled(true);
+                updateListBtn.setEnabled(true);
+                setPanelEnabled(panelBasicInfo, true);
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

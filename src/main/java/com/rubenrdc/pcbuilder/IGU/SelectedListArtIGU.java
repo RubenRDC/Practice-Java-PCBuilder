@@ -10,15 +10,15 @@ import com.rubenrdc.pcbuilder.models.list.ListaSeleccion;
  */
 public class SelectedListArtIGU extends javax.swing.JDialog implements Utilities {
 
-    private ListaSeleccion l;
+    private ListaSeleccion listaSeleccion;
     private PCBuilderIGU father;
 
     public SelectedListArtIGU(javax.swing.JFrame parent, boolean modal) {
         super(parent, modal);
         father = (PCBuilderIGU) parent;
-        l = father.getListSeleccion();
+        listaSeleccion = father.getListSeleccion();
         initComponents();
-        llenarTablaO(listComponentsTable, l.getListTitleAndCant());
+        llenarTablaO(listComponentsTable, listaSeleccion.getListTitleAndCant());
     }
 
     @SuppressWarnings("unchecked")
@@ -111,9 +111,10 @@ public class SelectedListArtIGU extends javax.swing.JDialog implements Utilities
     private void delectSelectedBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delectSelectedBtnMouseClicked
         int selectedRow = listComponentsTable.getSelectedRow();
         if (selectedRow != -1) {
-            Articulo remove = l.remove(listComponentsTable.getSelectedRow());
-            llenarTablaO(listComponentsTable, l.getListTitleAndCant());
+            Articulo remove = listaSeleccion.remove(listComponentsTable.getSelectedRow());
+            llenarTablaO(listComponentsTable, listaSeleccion.getListTitleAndCant());
             verificRemoveEl(remove);
+            father.setViewSelectedListBtnText(listaSeleccion.size());
         }
     }//GEN-LAST:event_delectSelectedBtnMouseClicked
 

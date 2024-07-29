@@ -18,6 +18,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.bson.types.ObjectId;
 
 /**
@@ -53,42 +54,41 @@ public class LogicPacksAL<T extends Articulo> {
             s.close();
             return PackageRec;
         } catch (IOException | ClassNotFoundException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "No fue posible establecer la conexion con el servidor\n" + ex, "Error al establecer la conexion", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
 
     public void setListCPUs(int TYPE_CPU) {
         String TYPE = (TYPE_CPU == 0) ? "INTEL" : "AMD";
-
-        this.listCPUs = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_CPU, TYPE).getListArts();
+        this.listCPUs = verificPackagePet(sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_CPU, TYPE));
     }
 
     public void setListMothers(String socketCPU) {
-        this.listMothers = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_MOTHER, socketCPU).getListArts();
+        this.listMothers = verificPackagePet(sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_MOTHER, socketCPU));
     }
 
     public void setListCoolers(String socketCPU, int TDPCPU) {
         param.put("socketCPU", socketCPU);
         param.put("TDPCPU", TDPCPU);
-        this.listCoolers = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_COOLER, param).getListArts();
+        this.listCoolers = verificPackagePet(sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_COOLER, param));
         param.clear();
     }
 
     public void setListRams(String Type) {
-        this.listRams = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_RAM, Type).getListArts();
+        this.listRams = verificPackagePet(sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_RAM, Type));
     }
 
     public void setListGPUs() {
-        this.listGPUs = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_GPU, null).getListArts();
+        this.listGPUs = verificPackagePet(sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_GPU, null));
     }
 
     public void setListStorages() {
-        this.listStorages = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_STORAGE, null).getListArts();
+        this.listStorages = verificPackagePet(sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_STORAGE, null));
     }
 
     public void setListPowers(int currentTotalW) {
-        this.listPowers = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_POWER, currentTotalW).getListArts();
+        this.listPowers = verificPackagePet(sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_POWER, currentTotalW));
     }
 
     public void setListTowers(String factorMother, String powerFactor, int lengthGPU, String TypeCooler, int highCooler, int CoolersFans, int sizeCoolerFans) {
@@ -98,7 +98,7 @@ public class LogicPacksAL<T extends Articulo> {
         param.put("highCooler", highCooler);
         param.put("lenghtCoolerFans", (sizeCoolerFans * CoolersFans));
         param.put("lengthGPU", lengthGPU);
-        this.listTowers = sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_TOWER, param).getListArts();
+        this.listTowers = verificPackagePet(sendPackagePet(Paquete.TYPE_GET_LIST, Paquete.TYPE_TOWER, param));
         param.clear();
     }
 
@@ -136,5 +136,13 @@ public class LogicPacksAL<T extends Articulo> {
 
     public List<Gabinete> getListTowers() {
         return listTowers;
+    }
+
+    private List verificPackagePet(PaqueteRecepcionClient p) {
+        if (p != null) {
+            return p.getListArts();
+        } else {
+            return null;
+        }
     }
 }

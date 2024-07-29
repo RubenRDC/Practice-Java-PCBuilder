@@ -95,9 +95,6 @@ public class ListaSeleccion<T extends Articulo> extends ArrayList<T> {
             aux[1] = cantArts.get(i);
             RowArtsAndCant.add(aux);
         }
-        for (Object[] objects : RowArtsAndCant) {
-            System.out.println(Arrays.toString(objects));
-        }
         return RowArtsAndCant;
     }
 

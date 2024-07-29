@@ -16,13 +16,15 @@ public interface Utilities {
     default public <T extends Articulo> void llenarTabla(javax.swing.JTable table, List<T> lista) {
         clearTable(table);
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
-        for (T articulo : lista) {
-            model.addRow(articulo.getRow());
+        if (lista != null) {
+            for (T articulo : lista) {
+                model.addRow(articulo.getRow());
+            }
+            JOptionPane.showMessageDialog(null, "Cantidad de elementos encontrados: " + lista.size(), "Lista Cargada.", JOptionPane.INFORMATION_MESSAGE);
         }
-        JOptionPane.showMessageDialog(null, "Cantidad de elementos encontrados: " + lista.size(), "Lista Cargada.", JOptionPane.INFORMATION_MESSAGE);
         table.setModel(model);
     }
-    
+
     default public void llenarTablaO(javax.swing.JTable table, List<Object[]> lista) {
         clearTable(table);
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
@@ -59,6 +61,7 @@ public interface Utilities {
         javax.swing.ImageIcon iconS = new javax.swing.ImageIcon(imgS);
         return iconS;
     }
+
     default public void setPanelEnabled(javax.swing.JPanel panel, Boolean isEnabled) {
         panel.setEnabled(isEnabled);
         java.awt.Component[] components = panel.getComponents();
