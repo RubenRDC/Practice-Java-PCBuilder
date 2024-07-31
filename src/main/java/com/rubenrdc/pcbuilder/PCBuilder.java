@@ -15,7 +15,7 @@ public class PCBuilder {
         //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_GPU);
         //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_TOWER);
         //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_MOTHER);
-        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_PROCESSOR);
+        //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_CPU);
         //frameAdmin.OpenNewFrame(FrameAdmin.TYPE_INFO_ART, FrameAdmin.SUBTYPE_INFO_RAM);
     }
 }

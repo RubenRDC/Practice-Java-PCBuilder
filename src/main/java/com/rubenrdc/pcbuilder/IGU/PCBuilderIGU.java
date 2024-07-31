@@ -5,8 +5,10 @@ import com.rubenrdc.pcbuilder.IGU.interfaces.Utilities;
 import com.rubenrdc.pcbuilder.models.*;
 import com.rubenrdc.pcbuilder.models.list.ListaSeleccion;
 import com.rubenrdc.pcbuilderserver.logic.LogicPacksAL;
+import com.rubenrdc.pcbuilderserver.models.paquete.Paquete;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -844,16 +846,94 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
     }//GEN-LAST:event_addArtSelectedBtnMouseClicked
 
     private void moreInfoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moreInfoBtnMouseClicked
-        // TODO add your handling code here:
+        if (moreInfoBtn.isEnabled()) {
+            ObjectId id;
+            switch (pageSelected) {
+                case 0 -> {//Procesador
+                    if (TableProcesador.getSelectedRow() != -1) {
+                        showMoreInfoW(FrameAdmin.TYPE_INFO_ART,
+                                FrameAdmin.SUBTYPE_INFO_CPU,
+                                Paquete.TYPE_CPU,
+                                (Articulo) logicDao.getListCPUs().get(TableProcesador.getSelectedRow()));
+                    }
+                }
+                case 1 -> {//MotherBoard
+                    if (TableMother.getSelectedRow() != -1) {
+                        showMoreInfoW(FrameAdmin.TYPE_INFO_ART,
+                                FrameAdmin.SUBTYPE_INFO_MOTHER,
+                                Paquete.TYPE_MOTHER,
+                                (Articulo) logicDao.getListMothers().get(TableMother.getSelectedRow()));
+                    }
+                }
+                case 2 -> {//Cooler
+                    if (TableCooler.getSelectedRow() != -1) {
+                        showMoreInfoW(FrameAdmin.TYPE_INFO_ART,
+                                FrameAdmin.SUBTYPE_INFO_COOLER,
+                                Paquete.TYPE_COOLER,
+                                (Articulo) logicDao.getListCoolers().get(TableCooler.getSelectedRow()));
+                    }
+                }
+                case 3 -> {//Ram
+                    if (TableRam.getSelectedRow() != -1) {
+                        showMoreInfoW(FrameAdmin.TYPE_INFO_ART,
+                                FrameAdmin.SUBTYPE_INFO_RAM,
+                                Paquete.TYPE_RAM,
+                                (Articulo) logicDao.getListRams().get(TableRam.getSelectedRow()));
+                    }
+                }
+                case 4 -> {//GPU
+                    if (TableGPU.getSelectedRow() != -1) {
+                        showMoreInfoW(FrameAdmin.TYPE_INFO_ART,
+                                FrameAdmin.SUBTYPE_INFO_GPU,
+                                Paquete.TYPE_GPU,
+                                (Articulo) logicDao.getListGPUs().get(TableGPU.getSelectedRow()));
+                    }
+                }
+                case 5 -> {//Almacenamiento
+                    if (TableAlmacenamiento.getSelectedRow() != -1) {
+                        showMoreInfoW(FrameAdmin.TYPE_INFO_ART,
+                                FrameAdmin.SUBTYPE_INFO_STORAGE,
+                                Paquete.TYPE_STORAGE,
+                                (Articulo) logicDao.getListStorages().get(TableAlmacenamiento.getSelectedRow()));
+                    }
+                }
+                case 6 -> {//Fuente
+                    if (TableFuente.getSelectedRow() != -1) {
+                        showMoreInfoW(FrameAdmin.TYPE_INFO_ART,
+                                FrameAdmin.SUBTYPE_INFO_POWER,
+                                Paquete.TYPE_POWER,
+                                (Articulo) logicDao.getListPowers().get(TableFuente.getSelectedRow()));
+                    }
+                }
+                case 7 -> {//Gabinete
+                    if (TableGabinete.getSelectedRow() != -1) {
+                        showMoreInfoW(FrameAdmin.TYPE_INFO_ART,
+                                FrameAdmin.SUBTYPE_INFO_TOWER,
+                                Paquete.TYPE_TOWER,
+                                (Articulo) logicDao.getListTowers().get(TableGabinete.getSelectedRow()));
+                    }
+                }
+                default -> {
+                }
+            }
+        }
     }//GEN-LAST:event_moreInfoBtnMouseClicked
+
+    private void showMoreInfoW(int Type, int SubType, int PaqueteType, Articulo e) {
+        ObjectId id;
+        if (e != null) {
+            id = e.getId();
+            frameAdmin.OpenNewFrame(Type, SubType, LogicPacksAL.getMoreInfoArt(id, PaqueteType));
+        }
+    }
 
     private void updateListBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateListBtnMouseClicked
         getInfoPage(pageSelected);
     }//GEN-LAST:event_updateListBtnMouseClicked
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        if (pageSelected!=jTabbedPane1.getSelectedIndex()) {
-            pageSelected=jTabbedPane1.getSelectedIndex();
+        if (pageSelected != jTabbedPane1.getSelectedIndex()) {
+            pageSelected = jTabbedPane1.getSelectedIndex();
         }
         botonsVerificPage();
     }//GEN-LAST:event_jTabbedPane1StateChanged
@@ -1041,7 +1121,7 @@ public class PCBuilderIGU extends javax.swing.JFrame implements Utilities {
                 backBtn.setEnabled(true);
             }
             if (pageSelected == 8) {//jTabbedPane1.getTabCount()
-                
+
                 nextBtn.setEnabled(false);
                 updateListBtn.setEnabled(false);
                 setPanelEnabled(panelBasicInfo, false);

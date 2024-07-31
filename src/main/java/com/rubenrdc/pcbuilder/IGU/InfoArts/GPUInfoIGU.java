@@ -1,18 +1,30 @@
 package com.rubenrdc.pcbuilder.IGU.InfoArts;
 
+import com.rubenrdc.pcbuilder.IGU.interfaces.Utilities;
+import com.rubenrdc.pcbuilder.models.GPU;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ruben
  */
-public class GPUInfoIGU extends javax.swing.JDialog {
+public class GPUInfoIGU extends javax.swing.JDialog implements Utilities {
+
+    GPU artGPU;
 
     public GPUInfoIGU() {
         initComponents();
     }
 
-    public GPUInfoIGU(java.awt.Frame parent, boolean modal) {
+    public GPUInfoIGU(java.awt.Frame parent, boolean modal, GPU artGPU) {
         super(parent, modal);
+        this.artGPU = artGPU;
         initComponents();
+        setInfo();
     }
 
     @SuppressWarnings("unchecked")
@@ -31,9 +43,6 @@ public class GPUInfoIGU extends javax.swing.JDialog {
         jPanel6 = new javax.swing.JPanel();
         chipsetGpuTxt = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        serieTxt = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -57,7 +66,7 @@ public class GPUInfoIGU extends javax.swing.JDialog {
         jPanel19 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jPanel22 = new javax.swing.JPanel();
-        vgaTxt1 = new javax.swing.JTextField();
+        vgaTxt = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jPanel31 = new javax.swing.JPanel();
         dviTxt = new javax.swing.JTextField();
@@ -85,14 +94,22 @@ public class GPUInfoIGU extends javax.swing.JDialog {
         energyConsumptionTxt = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("GPU");
 
+        titleTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         titleTxt.setBorder(null);
+        titleTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        titleTxt.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -119,7 +136,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        typeTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         typeTxt.setBorder(null);
+        typeTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        typeTxt.setEnabled(false);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -142,7 +162,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        chipsetGpuTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         chipsetGpuTxt.setBorder(null);
+        chipsetGpuTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        chipsetGpuTxt.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -165,29 +188,6 @@ public class GPUInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        serieTxt.setBorder(null);
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("Serie:");
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(serieTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(serieTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("CARACTERISTICAS GENERALES:");
 
@@ -198,13 +198,11 @@ public class GPUInfoIGU extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -214,13 +212,15 @@ public class GPUInfoIGU extends javax.swing.JDialog {
                 .addComponent(jLabel11)
                 .addGap(0, 0, 0)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
+        typeMemoryTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         typeMemoryTxt.setBorder(null);
+        typeMemoryTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        typeMemoryTxt.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -246,7 +246,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("EXTRAS:");
 
+        memoryVRamTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         memoryVRamTxt.setBorder(null);
+        memoryVRamTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        memoryVRamTxt.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -269,7 +272,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        speedMemoryTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         speedMemoryTxt.setBorder(null);
+        speedMemoryTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        speedMemoryTxt.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -324,7 +330,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
 
         jPanel18.setPreferredSize(new java.awt.Dimension(85, 70));
 
+        heightTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         heightTxt.setBorder(null);
+        heightTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        heightTxt.setEnabled(false);
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -352,7 +361,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
 
         jPanel21.setPreferredSize(new java.awt.Dimension(85, 70));
 
+        lengthTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lengthTxt.setBorder(null);
+        lengthTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        lengthTxt.setEnabled(false);
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -406,7 +418,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
 
         jPanel22.setPreferredSize(new java.awt.Dimension(60, 70));
 
-        vgaTxt1.setBorder(null);
+        vgaTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        vgaTxt.setBorder(null);
+        vgaTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        vgaTxt.setEnabled(false);
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -417,7 +432,7 @@ public class GPUInfoIGU extends javax.swing.JDialog {
         jPanel22Layout.setHorizontalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(vgaTxt1)
+            .addComponent(vgaTxt)
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -425,13 +440,16 @@ public class GPUInfoIGU extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(vgaTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(vgaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel31.setPreferredSize(new java.awt.Dimension(60, 70));
 
+        dviTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         dviTxt.setBorder(null);
+        dviTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        dviTxt.setEnabled(false);
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -456,7 +474,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
 
         jPanel32.setPreferredSize(new java.awt.Dimension(60, 70));
 
+        hdmiTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         hdmiTxt.setBorder(null);
+        hdmiTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        hdmiTxt.setEnabled(false);
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -481,7 +502,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
 
         jPanel33.setPreferredSize(new java.awt.Dimension(60, 70));
 
+        displayPortsTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         displayPortsTxt.setBorder(null);
+        displayPortsTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        displayPortsTxt.setEnabled(false);
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -512,7 +536,6 @@ public class GPUInfoIGU extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
                         .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -538,7 +561,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        marcaTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         marcaTxt.setBorder(null);
+        marcaTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        marcaTxt.setEnabled(false);
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -588,6 +614,11 @@ public class GPUInfoIGU extends javax.swing.JDialog {
         btnMoreInfo.setText("Mas Info Aqui!");
         btnMoreInfo.setFocusable(false);
         btnMoreInfo.setPreferredSize(new java.awt.Dimension(75, 32));
+        btnMoreInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMoreInfoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
@@ -608,7 +639,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
 
         jPanel28.setPreferredSize(new java.awt.Dimension(103, 70));
 
+        recommMinimWattsTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         recommMinimWattsTxt.setBorder(null);
+        recommMinimWattsTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        recommMinimWattsTxt.setEnabled(false);
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -636,7 +670,10 @@ public class GPUInfoIGU extends javax.swing.JDialog {
 
         jPanel29.setPreferredSize(new java.awt.Dimension(103, 70));
 
+        energyConsumptionTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         energyConsumptionTxt.setBorder(null);
+        energyConsumptionTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        energyConsumptionTxt.setEnabled(false);
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -732,9 +769,7 @@ public class GPUInfoIGU extends javax.swing.JDialog {
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -754,6 +789,44 @@ public class GPUInfoIGU extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        artGPU = null;
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnMoreInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMoreInfoMouseClicked
+        if (artGPU.getOficialDocumentation() != null) {
+            try {
+                Desktop.getDesktop().browse(new URI(artGPU.getOficialDocumentation()));
+            } catch (URISyntaxException | IOException ex) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontro documentacion oficial.", "Atencion!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnMoreInfoMouseClicked
+
+    private void setInfo() {
+        if (artGPU != null) {
+            imgLabel.setIcon(generateImageIcon(artGPU.getImagen(), imgLabel));
+            titleTxt.setText(artGPU.getTitle());
+            typeTxt.setText(artGPU.getType());
+            chipsetGpuTxt.setText(artGPU.getChipsetGpu());
+            energyConsumptionTxt.setText(Integer.toString(artGPU.getEnergyConsumption()));
+            recommMinimWattsTxt.setText(Integer.toString(artGPU.getRecommMinimWatts()));
+            vgaTxt.setText(Integer.toString(artGPU.getVGA()));
+            dviTxt.setText(Integer.toString(artGPU.getDVI()));
+            hdmiTxt.setText(Integer.toString(artGPU.getHDMI()));
+            displayPortsTxt.setText(Integer.toString(artGPU.getDisplayPorts()));
+            lengthTxt.setText(Integer.toString(artGPU.getLength()));
+            heightTxt.setText(Integer.toString(artGPU.getHeight()));
+            typeMemoryTxt.setText(artGPU.getTypeMemory());
+            memoryVRamTxt.setText(Integer.toString(artGPU.getMemoryVRam()));
+            speedMemoryTxt.setText(Integer.toString(artGPU.getSpeedMemory()));
+            marcaTxt.setText(artGPU.getMarca());
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo acceder a la informacion solicitada.", "Atencion!", JOptionPane.WARNING_MESSAGE);
+            this.dispose();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMoreInfo;
@@ -786,7 +859,6 @@ public class GPUInfoIGU extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -810,16 +882,14 @@ public class GPUInfoIGU extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField lengthTxt;
     private javax.swing.JTextField marcaTxt;
     private javax.swing.JTextField memoryVRamTxt;
     private javax.swing.JTextField recommMinimWattsTxt;
-    private javax.swing.JTextField serieTxt;
     private javax.swing.JTextField speedMemoryTxt;
     private javax.swing.JTextField titleTxt;
     private javax.swing.JTextField typeMemoryTxt;
     private javax.swing.JTextField typeTxt;
-    private javax.swing.JTextField vgaTxt1;
+    private javax.swing.JTextField vgaTxt;
     // End of variables declaration//GEN-END:variables
 }

@@ -103,7 +103,11 @@ public class LogicPacksAL<T extends Articulo> {
     }
 
     public static Articulo getMoreInfoArt(ObjectId idArt, int PaqueteTYPE_ART) {
-        return sendPackagePet(Paquete.TYPE_GET_MORE_INFO, PaqueteTYPE_ART, idArt).getArtCompl();
+        PaqueteRecepcionClient sendPackagePet = sendPackagePet(Paquete.TYPE_GET_MORE_INFO, PaqueteTYPE_ART, idArt);
+        if (sendPackagePet!=null) {
+            return sendPackagePet.getArtCompl();
+        }
+        return null;
     }
 
     public List<Procesador> getListCPUs() {

@@ -1,18 +1,30 @@
 package com.rubenrdc.pcbuilder.IGU.InfoArts;
 
+import com.rubenrdc.pcbuilder.IGU.interfaces.Utilities;
+import com.rubenrdc.pcbuilder.models.Fuente;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ruben
  */
-public class PowerInfoIGU extends javax.swing.JDialog {
+public class PowerInfoIGU extends javax.swing.JDialog implements Utilities {
+
+    Fuente artFuente;
 
     public PowerInfoIGU() {
         initComponents();
     }
 
-    public PowerInfoIGU(java.awt.Frame parent, boolean modal) {
+    public PowerInfoIGU(java.awt.Frame parent, boolean modal, Fuente artFuente) {
         super(parent, modal);
+        this.artFuente = artFuente;
         initComponents();
+        setInfo();
     }
 
     @SuppressWarnings("unchecked")
@@ -63,14 +75,22 @@ public class PowerInfoIGU extends javax.swing.JDialog {
         jPanel27 = new javax.swing.JPanel();
         btnMoreInfo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Fuente de Poder");
 
+        titleTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         titleTxt.setBorder(null);
+        titleTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        titleTxt.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -97,7 +117,10 @@ public class PowerInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        factorTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         factorTxt.setBorder(null);
+        factorTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        factorTxt.setEnabled(false);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -120,7 +143,10 @@ public class PowerInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        ratedWattsTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ratedWattsTxt.setBorder(null);
+        ratedWattsTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        ratedWattsTxt.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -143,7 +169,10 @@ public class PowerInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        realWattsTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         realWattsTxt.setBorder(null);
+        realWattsTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        realWattsTxt.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -168,7 +197,10 @@ public class PowerInfoIGU extends javax.swing.JDialog {
 
         jPanel8.setPreferredSize(new java.awt.Dimension(115, 70));
 
+        certificationTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         certificationTxt.setBorder(null);
+        certificationTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        certificationTxt.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -226,7 +258,10 @@ public class PowerInfoIGU extends javax.swing.JDialog {
                 .addGap(6, 6, 6))
         );
 
+        includeCableTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         includeCableTxt.setBorder(null);
+        includeCableTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        includeCableTxt.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -276,7 +311,10 @@ public class PowerInfoIGU extends javax.swing.JDialog {
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel17.setText("CABLEADO:");
 
+        wiringTypeTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         wiringTypeTxt.setBorder(null);
+        wiringTypeTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        wiringTypeTxt.setEnabled(false);
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -299,7 +337,10 @@ public class PowerInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        pin24ConnectorTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         pin24ConnectorTxt.setBorder(null);
+        pin24ConnectorTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        pin24ConnectorTxt.setEnabled(false);
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -322,7 +363,10 @@ public class PowerInfoIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        sataConnectionsTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         sataConnectionsTxt.setBorder(null);
+        sataConnectionsTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        sataConnectionsTxt.setEnabled(false);
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -377,7 +421,10 @@ public class PowerInfoIGU extends javax.swing.JDialog {
                 .addGap(6, 6, 6))
         );
 
+        marcaTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         marcaTxt.setBorder(null);
+        marcaTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        marcaTxt.setEnabled(false);
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -427,6 +474,11 @@ public class PowerInfoIGU extends javax.swing.JDialog {
         btnMoreInfo.setText("Mas Info Aqui!");
         btnMoreInfo.setFocusable(false);
         btnMoreInfo.setPreferredSize(new java.awt.Dimension(75, 32));
+        btnMoreInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMoreInfoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
@@ -505,6 +557,38 @@ public class PowerInfoIGU extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        artFuente = null;
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnMoreInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMoreInfoMouseClicked
+        if (artFuente.getOficialDocumentation() != null) {
+            try {
+                Desktop.getDesktop().browse(new URI(artFuente.getOficialDocumentation()));
+            } catch (URISyntaxException | IOException ex) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontro documentacion oficial.", "Atencion!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnMoreInfoMouseClicked
+    private void setInfo() {
+        if (artFuente != null) {
+            imgLabel.setIcon(generateImageIcon(artFuente.getImagen(), imgLabel));
+            titleTxt.setText(artFuente.getTitle());
+            factorTxt.setText(artFuente.getFactor());
+            ratedWattsTxt.setText(Integer.toString(artFuente.getRatedWatts()));
+            realWattsTxt.setText(Integer.toString(artFuente.getRealWatts()));
+            certificationTxt.setText(artFuente.getCertification());
+            wiringTypeTxt.setText(artFuente.getWiringType());
+            pin24ConnectorTxt.setText(Boolean.toString(artFuente.isPin24Connector()));
+            sataConnectionsTxt.setText(Integer.toString(artFuente.getSataConnections()));
+            includeCableTxt.setText(Boolean.toString(artFuente.isIncludeCable()));
+            marcaTxt.setText(artFuente.getMarca());
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo acceder a la informacion solicitada.", "Atencion!", JOptionPane.WARNING_MESSAGE);
+            this.dispose();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMoreInfo;

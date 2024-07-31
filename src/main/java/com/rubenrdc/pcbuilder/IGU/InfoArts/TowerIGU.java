@@ -1,18 +1,30 @@
 package com.rubenrdc.pcbuilder.IGU.InfoArts;
 
+import com.rubenrdc.pcbuilder.IGU.interfaces.Utilities;
+import com.rubenrdc.pcbuilder.models.Gabinete;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ruben
  */
-public class TowerIGU extends javax.swing.JDialog {
+public class TowerIGU extends javax.swing.JDialog implements Utilities {
+
+    Gabinete artGabinete;
 
     public TowerIGU() {
         initComponents();
     }
 
-    public TowerIGU(java.awt.Frame parent, boolean modal) {
+    public TowerIGU(java.awt.Frame parent, boolean modal, Gabinete artGabinete) {
         super(parent, modal);
+        this.artGabinete = artGabinete;
         initComponents();
+        setInfo();
     }
 
     @SuppressWarnings("unchecked")
@@ -106,14 +118,22 @@ public class TowerIGU extends javax.swing.JDialog {
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Fuente de Poder");
 
+        titleTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         titleTxt.setBorder(null);
+        titleTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        titleTxt.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -140,7 +160,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        factorMotherTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         factorMotherTxt.setBorder(null);
+        factorMotherTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        factorMotherTxt.setEnabled(false);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -163,7 +186,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        powerFactorTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         powerFactorTxt.setBorder(null);
+        powerFactorTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        powerFactorTxt.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -186,7 +212,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        windowTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         windowTxt.setBorder(null);
+        windowTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        windowTxt.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -209,7 +238,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        typeWindowTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         typeWindowTxt.setBorder(null);
+        typeWindowTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        typeWindowTxt.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -270,7 +302,10 @@ public class TowerIGU extends javax.swing.JDialog {
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel17.setText("DIMENSIONES:");
 
+        widthTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         widthTxt.setBorder(null);
+        widthTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        widthTxt.setEnabled(false);
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -293,7 +328,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        heightTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         heightTxt.setBorder(null);
+        heightTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        heightTxt.setEnabled(false);
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -316,7 +354,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lengthTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lengthTxt.setBorder(null);
+        lengthTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        lengthTxt.setEnabled(false);
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -339,7 +380,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        maxSoportCoolerHeightTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         maxSoportCoolerHeightTxt.setBorder(null);
+        maxSoportCoolerHeightTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        maxSoportCoolerHeightTxt.setEnabled(false);
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -398,6 +442,11 @@ public class TowerIGU extends javax.swing.JDialog {
         btnMoreInfo.setText("Mas Info Aqui!");
         btnMoreInfo.setFocusable(false);
         btnMoreInfo.setPreferredSize(new java.awt.Dimension(75, 32));
+        btnMoreInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMoreInfoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
@@ -421,7 +470,10 @@ public class TowerIGU extends javax.swing.JDialog {
 
         jPanel23.setPreferredSize(new java.awt.Dimension(80, 70));
 
+        storageSlotsTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         storageSlotsTxt.setBorder(null);
+        storageSlotsTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        storageSlotsTxt.setEnabled(false);
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -446,7 +498,10 @@ public class TowerIGU extends javax.swing.JDialog {
 
         jPanel28.setPreferredSize(new java.awt.Dimension(80, 70));
 
+        soportFactor2_5Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportFactor2_5Txt.setBorder(null);
+        soportFactor2_5Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportFactor2_5Txt.setEnabled(false);
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -471,7 +526,10 @@ public class TowerIGU extends javax.swing.JDialog {
 
         jPanel29.setPreferredSize(new java.awt.Dimension(80, 70));
 
+        soportFactor3_25Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportFactor3_25Txt.setBorder(null);
+        soportFactor3_25Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportFactor3_25Txt.setEnabled(false);
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -496,7 +554,10 @@ public class TowerIGU extends javax.swing.JDialog {
 
         jPanel30.setPreferredSize(new java.awt.Dimension(80, 70));
 
+        soportFactor3_5Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportFactor3_5Txt.setBorder(null);
+        soportFactor3_5Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportFactor3_5Txt.setEnabled(false);
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -521,7 +582,10 @@ public class TowerIGU extends javax.swing.JDialog {
 
         jPanel31.setPreferredSize(new java.awt.Dimension(80, 70));
 
+        soportFactor5_25Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportFactor5_25Txt.setBorder(null);
+        soportFactor5_25Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportFactor5_25Txt.setEnabled(false);
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -576,16 +640,17 @@ public class TowerIGU extends javax.swing.JDialog {
                             .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jPanel29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel31, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel30.setText("CANT. COOLER FANS SOPORTADOS:");
 
+        soportCoolersFan80Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportCoolersFan80Txt.setBorder(null);
+        soportCoolersFan80Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportCoolersFan80Txt.setEnabled(false);
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -608,7 +673,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        soportCoolersFan120Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportCoolersFan120Txt.setBorder(null);
+        soportCoolersFan120Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportCoolersFan120Txt.setEnabled(false);
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -631,7 +699,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        soportCoolersFan140Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportCoolersFan140Txt.setBorder(null);
+        soportCoolersFan140Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportCoolersFan140Txt.setEnabled(false);
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -654,7 +725,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        soportCoolersFan200Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportCoolersFan200Txt.setBorder(null);
+        soportCoolersFan200Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportCoolersFan200Txt.setEnabled(false);
 
         jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -713,7 +787,10 @@ public class TowerIGU extends javax.swing.JDialog {
         jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel35.setText("CANT. RADIADORES SOPORTADOS:");
 
+        soportRadiator240Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportRadiator240Txt.setBorder(null);
+        soportRadiator240Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportRadiator240Txt.setEnabled(false);
 
         jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -736,7 +813,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        soportRadiator280Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportRadiator280Txt.setBorder(null);
+        soportRadiator280Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportRadiator280Txt.setEnabled(false);
 
         jLabel39.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -759,7 +839,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        soportRadiator360Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportRadiator360Txt.setBorder(null);
+        soportRadiator360Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportRadiator360Txt.setEnabled(false);
 
         jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -782,7 +865,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        soportRadiator420Txt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         soportRadiator420Txt.setBorder(null);
+        soportRadiator420Txt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        soportRadiator420Txt.setEnabled(false);
 
         jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -838,7 +924,10 @@ public class TowerIGU extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        marcaTxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         marcaTxt.setBorder(null);
+        marcaTxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        marcaTxt.setEnabled(false);
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -926,6 +1015,7 @@ public class TowerIGU extends javax.swing.JDialog {
                         .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
@@ -955,6 +1045,52 @@ public class TowerIGU extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnMoreInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMoreInfoMouseClicked
+        if (artGabinete.getOficialDocumentation() != null) {
+            try {
+                Desktop.getDesktop().browse(new URI(artGabinete.getOficialDocumentation()));
+            } catch (URISyntaxException | IOException ex) {
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontro documentacion oficial.", "Atencion!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnMoreInfoMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        artGabinete = null;
+    }//GEN-LAST:event_formWindowClosed
+
+    private void setInfo() {
+        if (artGabinete != null) {
+            imgLabel.setIcon(generateImageIcon(artGabinete.getImagen(), imgLabel));
+            titleTxt.setText(artGabinete.getTitle());
+            factorMotherTxt.setText(artGabinete.getFactorMother());
+            powerFactorTxt.setText(artGabinete.getPowerFactor());
+            windowTxt.setText(Boolean.toString(artGabinete.isWindow()));
+            typeWindowTxt.setText(artGabinete.getTypeWindow());
+            soportCoolersFan80Txt.setText(Integer.toString(artGabinete.getSoportCoolersFan80()));
+            soportCoolersFan120Txt.setText(Integer.toString(artGabinete.getSoportCoolersFan120()));
+            soportCoolersFan140Txt.setText(Integer.toString(artGabinete.getSoportCoolersFan140()));
+            soportCoolersFan200Txt.setText(Integer.toString(artGabinete.getSoportCoolersFan200()));
+            widthTxt.setText(Integer.toString(artGabinete.getWidth()));
+            heightTxt.setText(Integer.toString(artGabinete.getHeight()));
+            lengthTxt.setText(Integer.toString(artGabinete.getLength()));
+            maxSoportCoolerHeightTxt.setText(Integer.toString(artGabinete.getMaxSoportCoolerHeight()));
+            soportRadiator240Txt.setText(Integer.toString(artGabinete.getSoportRadiator240()));
+            soportRadiator280Txt.setText(Integer.toString(artGabinete.getSoportRadiator280()));
+            soportRadiator360Txt.setText(Integer.toString(artGabinete.getSoportRadiator360()));
+            soportRadiator420Txt.setText(Integer.toString(artGabinete.getSoportRadiator420()));
+            storageSlotsTxt.setText(Integer.toString(artGabinete.getStorageSlots()));
+            soportFactor2_5Txt.setText(Integer.toString(artGabinete.getSoportFactor2_5()));
+            soportFactor3_25Txt.setText(Integer.toString(artGabinete.getSoportFactor3_25()));
+            soportFactor3_5Txt.setText(Integer.toString(artGabinete.getSoportFactor3_5()));
+            soportFactor5_25Txt.setText(Integer.toString(artGabinete.getSoportFactor5_25()));
+            marcaTxt.setText(artGabinete.getMarca());
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo acceder a la informacion solicitada.", "Atencion!", JOptionPane.WARNING_MESSAGE);
+            this.dispose();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMoreInfo;
