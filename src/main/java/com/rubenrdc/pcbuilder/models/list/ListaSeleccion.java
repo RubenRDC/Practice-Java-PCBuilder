@@ -2,7 +2,6 @@ package com.rubenrdc.pcbuilder.models.list;
 
 import com.rubenrdc.pcbuilder.models.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
